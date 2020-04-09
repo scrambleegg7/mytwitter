@@ -4,9 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-
 import { createTweet } from '../store/actions/tweetActions';
-
 import { Grid } from '@material-ui/core';
 
 

@@ -69,13 +69,18 @@ class SinUp extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         
-        const { email, password } = this.state;
+        const { firstname, lastname, email, password, backgroundColor } = this.state;
 
         console.log("signin state:", this.state )
         const user = {
+            firstname,
+            lastname,
             email,
-            password
-        };        
+            password,
+            backgroundColor
+        };    
+        
+        this.props.signUp(user);
     }
 
     loginForm = (classes) => (
