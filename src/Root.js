@@ -14,11 +14,7 @@ import history from './utils/history';
 import ScreenTest from './components/ScreenTest';
 
 import SignIn from './user/SignIn';
-<<<<<<< HEAD
-import SignUp from './user/SignUp';
-=======
 import SignUp from './containers/SignUp';
->>>>>>> origin/mongo
 import ForgetPassword from './user/ForgetPassword';
 import EditUser from './user/EditUser';
 

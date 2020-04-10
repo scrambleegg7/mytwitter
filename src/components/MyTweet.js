@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React, { Component, useState, useEffect} from 'react';
->>>>>>> origin/mongo
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -17,12 +13,6 @@ import {
   Button,
   withStyles,
 } from '@material-ui/core';
-<<<<<<< HEAD
-import Markdown from 'react-markdown';
-import colorFrom from '../utils/colors';
-
-import { makeStyles } from '@material-ui/core/styles';
-=======
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -45,7 +35,6 @@ import Markdown from 'react-markdown';
 import colorFrom from '../utils/colors';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
->>>>>>> origin/mongo
 import MicrolinkCard from '@microlink/react';
 
 
@@ -58,26 +47,17 @@ const insertTextAtIndices = (text, obj) => {
     });
   };
 
-<<<<<<< HEAD
-
-
-=======
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
   
   
->>>>>>> origin/mongo
 const styles = theme => ({
     card: {
         marginBottom: theme.spacing.unit * 2,
         display: 'block',
         transitionDuration: '0.5s',
-<<<<<<< HEAD
-        height: '20vw',
-=======
         
->>>>>>> origin/mongo
     },
     cardMedia: {
         height: 0,
@@ -85,17 +65,12 @@ const styles = theme => ({
     },
     content: {
         wordWrap: 'break-word',
-<<<<<<< HEAD
-=======
         height: '15vw',
->>>>>>> origin/mongo
     },
     link: {
         textDecoration: 'none',
         color: theme.palette.primary.dark,
     },
-<<<<<<< HEAD
-=======
     expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
@@ -107,7 +82,6 @@ const styles = theme => ({
         transform: 'rotate(180deg)',
     },
 
->>>>>>> origin/mongo
 });
 
 
@@ -121,19 +95,6 @@ const MyTweet = ({
     highlighted,
     }) => {
 
-<<<<<<< HEAD
-
-
-    const image = text.match(imageUrlRe);
-
-
-    const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
-
-
-    const LinkPreviews = urlMatches.map(link => <MicrolinkCard url={link} />);
-
-
-=======
     const image = text.match(imageUrlRe);
     const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
     const LinkPreviews = urlMatches.map(link => <MicrolinkCard url={link} />);
@@ -164,7 +125,6 @@ const MyTweet = ({
     const MenuhandleClose = () => {
         setAnchorEl(null);
     }; 
->>>>>>> origin/mongo
 
     
     return (
@@ -182,11 +142,7 @@ const MyTweet = ({
                 />
             )}
 
-<<<<<<< HEAD
-            <CardHeader
-=======
             <CardHeader style={{backgroundColor: theme.palette.primary.light,}}
->>>>>>> origin/mongo
             avatar={
                 <Avatar
                 style={{
@@ -204,21 +160,13 @@ const MyTweet = ({
             }
             />
 
-<<<<<<< HEAD
-            <CardContent className={classes.content}>
-=======
             <CardContent className={classes.content}  onClick={handleClickOpen}   >
->>>>>>> origin/mongo
                 <Markdown
                 source={text}
                 />
 
                 {LinkPreviews}
             </CardContent>
-<<<<<<< HEAD
-
-            <button>button</button>            
-=======
             <CardActions disableSpacing>
                                 <IconButton aria-label="add to favorites">
                                 <FavoriteIcon />
@@ -274,7 +222,6 @@ const MyTweet = ({
                 </DialogActions>
             </Dialog>            
 
->>>>>>> origin/mongo
 
         </Card>
 

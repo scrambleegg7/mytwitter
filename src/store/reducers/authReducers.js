@@ -1,5 +1,7 @@
 
-const InitState = []
+const InitState = {
+    authError : null,
+}
 
 const authReducer = (state = InitState, action ) => {
 
@@ -11,7 +13,6 @@ const authReducer = (state = InitState, action ) => {
                 authError: "signup_successed"
             }
 
-
         case 'SIGNUP_ERROR':
             console.log("signup error from authreducer.")
             return {
@@ -19,13 +20,17 @@ const authReducer = (state = InitState, action ) => {
                 authError: action.err.message
             }
     
-
         case 'SIGNIN':
-            return state;
+            return {...state,
+                authError: "signin_successed"
+            }
 
         default:
-            return state;
+            return state
+            
 
     }
 
 }
+
+export default authReducer;

@@ -5,12 +5,6 @@ import { Face, Fingerprint } from '@material-ui/icons';
 
 import { Link, Redirect } from "react-router-dom";
 
-<<<<<<< HEAD
-import { connect } from "react-redux";
-import { signIn } from '../store/actions/authActions';
-
-=======
->>>>>>> origin/mongo
 const styles = theme => ({
 
     paper: {
@@ -70,13 +64,7 @@ class SignIn extends Component {
         const user = {
             email,
             password
-<<<<<<< HEAD
-        };      
-        this.props.signIn(this.state)
-
-=======
         };        
->>>>>>> origin/mongo
     }
 
     loginForm = (classes) => (
@@ -131,19 +119,7 @@ class SignIn extends Component {
 
     render() {
         
-<<<<<<< HEAD
-        const { classes, auth, authError } = this.props;
-
-        console.log("signin - auth ",auth)
-        console.log("signin - authError ",authError)
-
-        if (authError === "login_success" && auth.uid) {
-            return <Redirect  to="/"   />
-        }
-
-=======
         const { classes } = this.props;
->>>>>>> origin/mongo
 
         return (
             <div>
@@ -157,26 +133,5 @@ class SignIn extends Component {
 
 }
 
-<<<<<<< HEAD
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signIn: (newUser) => dispatch( signIn(newUser) )
-        //signUp: (newUser) => signUp(ownProps, dispatch, newUser) 
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-        auth: state.firebase.auth,
-        authError: state.auth.authError
-
-    }
-}
-
-
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps) (SignIn));
-=======
 
 export default withStyles(styles)(SignIn);
->>>>>>> origin/mongo

@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-<<<<<<< HEAD
-import { Redirect } from "react-router-dom";
-
-=======
->>>>>>> origin/mongo
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
 import { Face,  Https } from '@material-ui/icons';
 import PaletteIcon from '@material-ui/icons/Palette';
@@ -15,12 +10,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-<<<<<<< HEAD
-import { signUp } from '../store/actions/authActions';
-import { connect } from 'react-redux';
-=======
-
->>>>>>> origin/mongo
 
 const styles = theme => ({
 
@@ -49,32 +38,19 @@ const styles = theme => ({
 });
 
 
-<<<<<<< HEAD
-class SignUp extends Component {
-=======
 class SinUp extends Component {
->>>>>>> origin/mongo
 
     constructor(props) {
         super(props);
 
         this.state = {
-<<<<<<< HEAD
-            firstName: "" ,
-            lastName: "",
-=======
             firstname: "" ,
             lastname: "",
->>>>>>> origin/mongo
             nickname: "",
             email: "",
             password: "",
             password2: "",
             error: "",
-<<<<<<< HEAD
-            isAdmin: "",
-=======
->>>>>>> origin/mongo
             backgroundColor: "",
             loading: false,
         };
@@ -92,22 +68,6 @@ class SinUp extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         
-<<<<<<< HEAD
-        const { email, password } = this.state;
-
-        console.log("signin state:", this.state )
-        const user = {
-            email,
-            password
-        };        
-
-        this.props.signUp(this.state)
-
-    }
-
-    loginForm = (classes, isInValid,  authError  ) => (
-
-=======
         const { firstname, lastname, email, password, backgroundColor } = this.state;
 
         console.log("signin state:", this.state )
@@ -123,7 +83,6 @@ class SinUp extends Component {
     }
 
     loginForm = (classes, authError) => (
->>>>>>> origin/mongo
 
         <Paper className={classes.padding}>
         <div className={classes.margin}>
@@ -132,11 +91,7 @@ class SinUp extends Component {
                     
                 </Grid>
                 <Grid item md={true} sm={true} xs={true}>
-<<<<<<< HEAD
-                    <TextField id="lastName" label="姓" type="text" fullWidth autoFocus required  onChange={this.handleChange("lastName")} />
-=======
                     <TextField id="lastname" label="姓" type="text" fullWidth autoFocus required  onChange={this.handleChange("lastname")} />
->>>>>>> origin/mongo
                 </Grid>
             </Grid>
             <Grid container spacing={8} alignItems="flex-end">
@@ -144,11 +99,7 @@ class SinUp extends Component {
                     
                 </Grid>
                 <Grid item md={true} sm={true} xs={true}>
-<<<<<<< HEAD
-                    <TextField id="firstName" label="名" type="text" fullWidth autoFocus required  onChange={this.handleChange("firstName")} />
-=======
                     <TextField id="firstname" label="名" type="text" fullWidth autoFocus required  onChange={this.handleChange("firstname")} />
->>>>>>> origin/mongo
                 </Grid>
             </Grid>
 
@@ -204,11 +155,7 @@ class SinUp extends Component {
                 </Grid>
             </Grid>
             <Grid container justify="center" style={{ marginTop: '10px' }}>
-<<<<<<< HEAD
-                <Button disabled={isInValid} variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>
-=======
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>
->>>>>>> origin/mongo
                 <div className="red-text center">{ authError ?  <p>  {authError}  </p> : null      }</div>
             </Grid>
         </div>
@@ -220,26 +167,6 @@ class SinUp extends Component {
 
     render() {
         
-<<<<<<< HEAD
-        const { classes, auth, authError } = this.props;        
-        const isInValid = this.state.password !== this.state.password2;
-
-        console.log("signup - auth",auth)
-        console.log("signup - authError",authError)
-        
-        if (!auth.isEmpty) {
-            return <Redirect to="/signin" />;
-        }
-        else {
-            return (
-                <div>
-                    <Container component="main" maxWidth="md">
-                            {this.loginForm(classes, isInValid,  authError ) }
-                    </Container>
-                </div>
-            );
-        }
-=======
         const { classes,authError } = this.props;
 
         return (
@@ -250,30 +177,9 @@ class SinUp extends Component {
              </div>
         );
         
->>>>>>> origin/mongo
     }
 
 }
 
 
-<<<<<<< HEAD
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signUp: (newUser) => dispatch( signUp(newUser) )
-        //signUp: (newUser) => signUp(ownProps, dispatch, newUser) 
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-        auth: state.firebase.auth,
-        authError: state.auth.authError
-
-    }
-}
-
-
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SignUp));
-=======
 export default withStyles(styles)(SinUp);
->>>>>>> origin/mongo
