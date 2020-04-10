@@ -5,9 +5,12 @@ import { Face, Fingerprint } from '@material-ui/icons';
 
 import { Link, Redirect } from "react-router-dom";
 
+<<<<<<< HEAD
 import { connect } from "react-redux";
 import { signIn } from '../store/actions/authActions';
 
+=======
+>>>>>>> origin/mongo
 const styles = theme => ({
 
     paper: {
@@ -67,9 +70,13 @@ class SignIn extends Component {
         const user = {
             email,
             password
+<<<<<<< HEAD
         };      
         this.props.signIn(this.state)
 
+=======
+        };        
+>>>>>>> origin/mongo
     }
 
     loginForm = (classes) => (
@@ -124,6 +131,7 @@ class SignIn extends Component {
 
     render() {
         
+<<<<<<< HEAD
         const { classes, auth, authError } = this.props;
 
         console.log("signin - auth ",auth)
@@ -133,6 +141,9 @@ class SignIn extends Component {
             return <Redirect  to="/"   />
         }
 
+=======
+        const { classes } = this.props;
+>>>>>>> origin/mongo
 
         return (
             <div>
@@ -146,6 +157,7 @@ class SignIn extends Component {
 
 }
 
+<<<<<<< HEAD
 const mapDispatchToProps = (dispatch) => {
     return {
         signIn: (newUser) => dispatch( signIn(newUser) )
@@ -164,3 +176,7 @@ const mapStateToProps = (state) => {
 
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps) (SignIn));
+=======
+
+export default withStyles(styles)(SignIn);
+>>>>>>> origin/mongo

@@ -4,11 +4,17 @@ import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 
 import { createTweet } from '../store/actions/tweetActions';
 
 import { Grid } from '@material-ui/core';
 import Logout from '../user/Logout';
+=======
+import { createTweet } from '../store/actions/tweetActions';
+import { Grid } from '@material-ui/core';
+
+>>>>>>> origin/mongo
 
 const styles = (theme) =>  ( {
     root: {
@@ -50,7 +56,10 @@ class Home extends Component {
         return (
             <React.Fragment>
  
+<<<<<<< HEAD
                 <Logout />
+=======
+>>>>>>> origin/mongo
                 <Grid container className={classes.root}>
                     <Grid container={true} direction="column">
                         <Grid item={true}  xs={12} md={6} lg={10}>
