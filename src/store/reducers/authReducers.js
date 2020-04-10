@@ -1,5 +1,5 @@
 
-InitState = []
+const InitState = []
 
 const authReducer = (state = InitState, action ) => {
 
@@ -8,7 +8,7 @@ const authReducer = (state = InitState, action ) => {
             console.log("successfully signup from authreducer.")
             return {
                 ...state,
-                authError: null
+                authError: "signup_successed"
             }
 
 

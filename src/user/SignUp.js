@@ -83,7 +83,7 @@ class SinUp extends Component {
         this.props.signUp(user);
     }
 
-    loginForm = (classes) => (
+    loginForm = (classes, authError) => (
 
         <Paper className={classes.padding}>
         <div className={classes.margin}>
@@ -157,6 +157,7 @@ class SinUp extends Component {
             </Grid>
             <Grid container justify="center" style={{ marginTop: '10px' }}>
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>
+                <div className="red-text center">{ authError ?  <p>  {authError}  </p> : null      }</div>
             </Grid>
         </div>
     </Paper>
@@ -167,12 +168,12 @@ class SinUp extends Component {
 
     render() {
         
-        const { classes } = this.props;
+        const { classes,authError } = this.props;
 
         return (
             <div>
                 <Container component="main" maxWidth="md">
-                        {this.loginForm(classes) }
+                        {this.loginForm(classes,authError) }
                 </Container>
              </div>
         );

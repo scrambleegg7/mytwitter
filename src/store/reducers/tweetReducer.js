@@ -8,9 +8,9 @@ const InitState = loadstore ? loadstore : []
 
 const tweetReducer = (state = InitState, action ) => {
 
-    if (state === undefined) {
-        state = []
-    }
+    //if (state === undefined) {
+    //    state = []
+    ///}
     //   const data = loadStore();
     //console.log("loadStore from tweetRedudcer", ...state)
 

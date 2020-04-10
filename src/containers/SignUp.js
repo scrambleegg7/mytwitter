@@ -5,12 +5,17 @@ import SignUp from '../user/SignUp';
 import { signUp, signIn } from '../store/actions/authActions';
 
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = (state, ownProps) => {
+    return {
+        authError: state.auth.authError
+    }
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signUp: (newUser) => dispatch( signUp(newUser) )
+    }
+}
 
-    signUp(user) { dispatch(signUp(  user ))}
-
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

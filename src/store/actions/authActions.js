@@ -1,8 +1,18 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-
 const signupHost = 'http://localhost:8080/signup';
+const signinHost = 'http://localhost:8080/signin';
+
+const requestOptions = (user) => {
+    return ({
+    method: 'POST',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' },
+    body: JSON.stringify(user)
+    })
+};
 
 export const signUp = (credentials) => {
 
@@ -20,15 +30,8 @@ export const signUp = (credentials) => {
 
         console.log("signup dispatch", user)
 
-        const requestOptions = {
-                method: 'POST',
-                headers: { 
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            };
 
-        fetch(signupHost, requestOptions)
+        fetch(signupHost, requestOptions(user))
         .then( () => { 
             dispatch({ type: "SIGNUP_SUCCESS" })
         })
