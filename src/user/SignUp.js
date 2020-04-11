@@ -3,12 +3,15 @@ import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox,
 import { Face,  Https } from '@material-ui/icons';
 import PaletteIcon from '@material-ui/icons/Palette';
 
+import Typography from "@material-ui/core/Typography";
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+import Link from '@material-ui/core/Link';
 
 
 
@@ -156,8 +159,10 @@ class SinUp extends Component {
                 </Grid>
             </Grid>
             <Grid container justify="center" style={{ marginTop: '10px' }}>
-                <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>
-                <div className="red-text center">{ authError ?  <p>  {authError}  </p> : null      }</div>
+                <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>    
+            </Grid>
+            <Grid container justify="center" style={{ marginTop: '2x' }}>
+                <Typography variant="body" color="Secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
             </Grid>
         </div>
     </Paper>
@@ -169,6 +174,7 @@ class SinUp extends Component {
     render() {
         
         const { classes,authError } = this.props;
+
 
         return (
             <div>

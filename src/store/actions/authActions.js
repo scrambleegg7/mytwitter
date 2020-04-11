@@ -10,8 +10,11 @@ const handleResponse = (response ) => {
     return response.text()
     .then( (text) => {
         const data = text && JSON.parse(text);
+
+        console.log("handleResponse", response)
+        
         if (!response.ok) {
-            if (response.status === 403) {
+            if (response.status !== 200) {
                 console.log("handleResponse", response)
             }
             const error = (data && data.error || data.statusText );
@@ -41,9 +44,10 @@ export const signUp = (credentials) => {
     const firstname = credentials.firstname
     const lastname = credentials.lastname;
     const name = lastname + " " + firstname;
+    const backgroundColor = credentials.backgroundColor;
 
     const user = {
-        name, email, password
+        firstname, lastname, email, password, backgroundColor
     }
 
     return (dispatch, getState) => {
