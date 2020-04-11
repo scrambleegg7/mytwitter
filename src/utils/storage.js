@@ -15,3 +15,12 @@ export function saveStore(store) {
     // noop
   }
 }
+
+export function saveJWTStore(store) {
+    try {
+        const stringifiedStore = JSON.stringify(store);
+        localStorage.setItem('jwt', stringifiedStore);
+    } catch (error) {
+        // noop
+    }
+}

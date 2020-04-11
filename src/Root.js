@@ -13,8 +13,9 @@ import history from './utils/history';
 
 import ScreenTest from './components/ScreenTest';
 
-import SignIn from './user/SignIn';
+import SignIn from './containers/SignIn';
 import SignUp from './containers/SignUp';
+
 import ForgetPassword from './user/ForgetPassword';
 import EditUser from './user/EditUser';
 

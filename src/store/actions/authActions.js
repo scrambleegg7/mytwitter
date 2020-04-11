@@ -67,14 +67,30 @@ export const signUp = (credentials) => {
 
 export const signIn = (credentials) => {
 
-    return (dispach) => {
+    const email = credentials.email;
+    const password = credentials.password;
 
-        console.log("signin dispatch", credentials)
+    const user = {
+        email, password
+    }
 
 
-        dispach({
-            type: "SIGNIN"
+    return (dispatch, getState) => {
+
+        console.log("signin dispatch", user)
+
+        fetch(signinHost, requestOptions(user))
+        .then(handleResponse)
+        .then( (data) => {
+            //console.log(" signin (authActions) ", data)
+            dispatch({ type: "SIGNIN_SUCCESS"  , data   }   )
         })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'SIGNIN_ERROR', err });
+        })
+
+
 
     }
 

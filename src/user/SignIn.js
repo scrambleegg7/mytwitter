@@ -43,6 +43,7 @@ class SignIn extends Component {
             password: "",
             error: "",
             loading: false,
+            redirectToReferer: false,
         };
 
     }
@@ -65,9 +66,22 @@ class SignIn extends Component {
             email,
             password
         };        
+
+        this.props.signIn(user);
     }
 
-    loginForm = (classes) => (
+    authentication = (token) => {
+        if (typeof window  != "undefined") {
+
+            console.log("save localStorage", token)
+            //localStorage.setItem("jtw", token);
+            //this.setState(   
+            //    {redirectToReferer: true,}
+            //)
+        }
+    }
+
+    loginForm = (classes, authError, data) => (
 
         <Paper className={classes.padding}>
         <div className={classes.margin}>
@@ -102,6 +116,10 @@ class SignIn extends Component {
             <Grid container justify="center" style={{ marginTop: '10px' }}>
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >Login</Button>
             </Grid>
+            <Grid container justify="center" style={{ marginTop: '2x' }}>
+                <Typography component={'span'}  variant="body2" color="secondary">{ authError ?  <p> {authError}  </p>  : null      } </Typography>
+            </Grid>
+
             <Grid container justify="center" style={{ marginTop: '10px' }}>
                     <Typography variant="h3">OR</Typography>
             </Grid>
@@ -119,12 +137,18 @@ class SignIn extends Component {
 
     render() {
         
-        const { classes } = this.props;
+        const { classes,authError, data, redirectToReferer } = this.props;
+        console.log("SignIn front", redirectToReferer)
+
+
+        if (redirectToReferer) {
+            return <Redirect  to="/"   />
+        }
 
         return (
             <div>
                 <Container component="main" maxWidth="md">
-                        {this.loginForm(classes) }
+                    {this.loginForm( classes, authError, data ) }
                 </Container>
              </div>
         );

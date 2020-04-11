@@ -11,9 +11,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import Link from '@material-ui/core/Link';
+//import Link from '@material-ui/core/Link';
 
-
+import { Link, Redirect } from "react-router-dom";
 
 const styles = theme => ({
 
@@ -162,8 +162,17 @@ class SinUp extends Component {
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >SignUp</Button>    
             </Grid>
             <Grid container justify="center" style={{ marginTop: '2x' }}>
-                <Typography variant="body" color="Secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
+                <Typography variant="body2" color="secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
             </Grid>
+
+            <Grid container justify="center" style={{ marginTop: '10px' }}>
+                    <Typography variant="h3">OR</Typography>
+            </Grid>
+            <Grid container justify="center" style={{ marginTop: '10px' }}>
+                <Button variant="outlined" color="primary" style={{ textTransform: "none" }} component={Link} to={"/signin"}  >SignIn</Button>
+            </Grid>
+
+
         </div>
     </Paper>
 
