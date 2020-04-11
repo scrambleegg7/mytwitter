@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers(
     {
-        sample: sampleReducer,
+
         tweets: tweetReducer,
         auth: authReducer,
     }
