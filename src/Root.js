@@ -8,6 +8,7 @@ import { ConnectedRouter } from 'connected-react-router';
 //import Login from './components/Login';
 
 import Home from './components/Home';
+import ButtonAppBar from './containers/ButtonAppBar';
 
 import history from './utils/history';
 
@@ -24,10 +25,13 @@ const Root = () => {
     return ( 
       <Router>
           <Switch>
-            <Route exact path="/" component={ Home } />
+            <Route exact path="/" component={ ButtonAppBar } />
+            <Route exact path="/menu" component={ ButtonAppBar } />
+            
             <Route exact path="/screentest" component={ ScreenTest } />
             <Route exact path="/signin" component={ SignIn } />
             <Route exact path="/signup" component={ SignUp } />
+            
             <Route exact path="/forgetpass" component={ ForgetPassword } />
             <Route exact path="/edituser" component={ EditUser } />
             

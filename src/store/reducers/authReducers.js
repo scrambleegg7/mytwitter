@@ -1,7 +1,14 @@
 
-import { saveJWTStore } from '../../utils/storage';
 
-const InitState = []
+import { loadJWTStore, removeJWTStore, saveJWTStore } from '../../utils/storage';
+
+const InitState = {
+    authError : null,
+    redirectToReferer: false,
+    loading: false,
+    data: loadJWTStore(),
+}
+
 
 const authReducer = (state = InitState, action ) => {
 
@@ -38,7 +45,25 @@ const authReducer = (state = InitState, action ) => {
                 ...state,
                 authError: action.err,
                 data : null,
-                redirectToReferer: false
+                redirectToReferer: false,
+                loading: false
+            }
+    
+        case 'SIGNOUT_SUCCESS':
+
+            removeJWTStore()
+            console.log("remove JWT from authreducr.")
+            return {
+                ...state,
+                authError: "signout_successed"
+            }
+
+
+        case 'SIGNOUT_ERROR':
+            //console.log("signup error from authreducer.")
+            return {
+                ...state,
+                authError: action.err
             }
     
 

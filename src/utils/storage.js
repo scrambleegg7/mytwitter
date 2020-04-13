@@ -24,3 +24,24 @@ export function saveJWTStore(store) {
         // noop
     }
 }
+
+
+export function loadJWTStore() {
+    try {
+        const state = localStorage.getItem('jwt');
+        return JSON.parse(state);
+    } 
+    catch (error) {
+        return undefined;
+    }
+}
+
+export function removeJWTStore() {
+    try {
+        const state = localStorage.removeItem('jwt');
+        return JSON.parse(state);
+    } 
+    catch (error) {
+        return undefined;
+    }
+}

@@ -3,15 +3,17 @@ import { v4 as uuid } from 'uuid';
 
 const signupHost = 'http://localhost:8080/signup';
 const signinHost = 'http://localhost:8080/signin';
-
+const signoutHost = 'http://localhost:8080/signout';
 
 const handleResponse = (response ) => {
+
+
+    //console.log("handleResponse", response)    
 
     return response.text()
     .then( (text) => {
         const data = text && JSON.parse(text);
 
-        console.log("handleResponse", response)
         
         if (!response.ok) {
             if (response.status !== 200) {
@@ -36,6 +38,13 @@ const requestOptions = (user) => {
     body: JSON.stringify(user)
     })
 };
+
+const requestGetOptions = () => {
+    return ({
+        method: 'GET',
+    })
+};
+
 
 export const signUp = (credentials) => {
 
@@ -77,7 +86,7 @@ export const signIn = (credentials) => {
 
     return (dispatch, getState) => {
 
-        console.log("signin dispatch", user)
+        console.log("signin authActions:", user)
 
         fetch(signinHost, requestOptions(user))
         .then(handleResponse)
@@ -86,12 +95,29 @@ export const signIn = (credentials) => {
             dispatch({ type: "SIGNIN_SUCCESS"  , data   }   )
         })
         .catch( (err) => {
-            //console.log("signup error", err)            
+            console.log("signin error", err)            
             dispatch( { type: 'SIGNIN_ERROR', err });
         })
-
-
-
     }
+
+}
+
+
+export const signOut = () => {
+
+    return (dispatch, getState) => {
+
+        fetch(signoutHost, requestGetOptions())
+        .then(handleResponse)
+        .then( (data) => {
+            //console.log(" signin (authActions) ", data)
+            dispatch({ type: "SIGNOUT_SUCCESS"   }   )
+        })
+        .catch( (err) => {
+            console.log("signin error", err)            
+            dispatch( { type: 'SIGNOUT_ERROR', err });
+        })
+    }
+
 
 }
