@@ -42,7 +42,7 @@ class TweetInput extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, data } = this.props;
 
         return (
             <Paper className={classes.paper}>
@@ -57,7 +57,7 @@ class TweetInput extends React.Component {
                 />
                 <Grid container justify="flex-end">
                 <Grid item>
-                    <Button
+                    <Button disabled={!data}
                     variant="outlined"
                     color="primary"
                     type="submit"

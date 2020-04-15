@@ -16,6 +16,8 @@ import ScreenTest from './components/ScreenTest';
 
 import SignIn from './containers/SignIn';
 import SignUp from './containers/SignUp';
+import Profile from './containers/Profile';
+
 
 import ForgetPassword from './user/ForgetPassword';
 import EditUser from './user/EditUser';
@@ -31,6 +33,7 @@ const Root = () => {
             <Route exact path="/screentest" component={ ScreenTest } />
             <Route exact path="/signin" component={ SignIn } />
             <Route exact path="/signup" component={ SignUp } />
+            <Route exact path="/user/:userId" component={ Profile } />
             
             <Route exact path="/forgetpass" component={ ForgetPassword } />
             <Route exact path="/edituser" component={ EditUser } />

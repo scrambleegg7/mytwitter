@@ -59,6 +59,8 @@ class SignOut extends Component {
         this.setState({ loading: true });
         
         this.props.signOut();
+
+        
     }
 
 

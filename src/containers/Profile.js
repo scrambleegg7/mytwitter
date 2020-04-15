@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import ButtonAppBar from '../components/ButtonAppBar';
+import Profile from '../user/Profile';
 
-import { signOut } from '../store/actions/authActions';
+//import { signOut } from '../store/actions/authActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,11 +13,10 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {  
+const mapDispatchToProps = (dispatch) => {
     return {
-        signOut: () => dispatch( signOut() )
     }
-};
+}
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ButtonAppBar);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

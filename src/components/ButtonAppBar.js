@@ -1,4 +1,5 @@
 import React, {useState, Component} from 'react';
+import { Link, Redirect } from "react-router-dom";
 
 import clsx from 'clsx';
 
@@ -9,9 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
-import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
-import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
+//import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
+//import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 
+import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Home from '../components/Home';
 
@@ -31,63 +34,66 @@ import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
 
-const styles = theme => ({
+    const styles = theme => ({
     root: {
-      display: 'flex',
+        display: 'flex',
     },
     appBar: {
-      transition: theme.transitions.create(['margin', 'width'], {
+        transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
-      }),
+        }),
     },
     appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create(['margin', 'width'], {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
-      }),
+        }),
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     hide: {
-      display: 'none',
+        display: 'none',
     },
     drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+        width: drawerWidth,
+        flexShrink: 0,
     },
     drawerPaper: {
-      width: drawerWidth,
+        width: drawerWidth,
     },
     drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
     },
     content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+        transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
+        }),
+        marginLeft: -drawerWidth
     },
     contentShift: {
-      transition: theme.transitions.create('margin', {
+        transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
+        }),
+        marginLeft: 0,
     },
-  });
-  
+});
+
+
+
+
   
 class ButtonAppBar extends Component {
 
@@ -112,11 +118,69 @@ class ButtonAppBar extends Component {
             open: false
         })
     };
+
+    handleSignOut =() => {
+
+        this.props.signOut();
+        this.setState({
+            open: false
+        })
+        //return <Redirect  to="/"   />
+    }
+    
+
+    menuItem = () => {
+
+        const data = this.props.data;
+
+        if (!data) {
+            return (
+                <div>
+                    <List>
+                        <ListItem button  component={Link} to="/signin" >
+                        <ListItemIcon>< PersonIcon /></ListItemIcon>
+                        <ListItemText primary="Login" />
+                        </ListItem>
+                    </List>                
+                </div> 
+    
+            )
+        }
+        else {
+            return (
+                <div>
+                    <List>
+                        <ListItem  >
+                        <ListItemIcon>< PersonIcon /></ListItemIcon>
+                        <ListItemText primary={data.user.email} />
+                        </ListItem>
+                    </List>    
+                    <Divider />            
+                    <List>
+                        <ListItem button  onClick={ this.handleSignOut  } >
+                        <ListItemIcon>< ExitToAppIcon /></ListItemIcon>
+                        <ListItemText primary="Logout" />
+                        </ListItem>
+                    </List>    
+    
+                </div>
+            )
+        }
+    }
+    
+
+
     
     render () {
 
-        const {classes} = this.props;
+        const {classes, data, redirectToReferer} = this.props;
         const { open } = this.state;
+
+        //console.log("ButtonAppBar:",this.props)
+        //if (!data && redirectToReferer) {
+        //    return <Redirect  to="/"   />
+        //}
+        //console.log("ButtonAppBar data -> : ",data)
 
         return   (
             <div className={classes.root}>
@@ -153,18 +217,13 @@ class ButtonAppBar extends Component {
             >
                 <div className={classes.drawerHeader}>
                 <IconButton onClick={this.handleDrawerClose}>
-                     <ChevronLeftIcon /> 
+                    <ChevronLeftIcon /> 
                 </IconButton>
                 </div>
                 <Divider />
-                <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                    <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-                </List>
+
+                    { this.menuItem()  }
+                
                 <Divider />
             </Drawer>
                 <main
@@ -178,8 +237,6 @@ class ButtonAppBar extends Component {
 
                 </main>
             </div>
-
-
         )}
 }
 

@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 
-import TweetInput from './TweetInput';
+import TweetInput from '../containers/TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { createTweet } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
-import SignOut from '../containers/SignOut';
-
-import ButtonAppBar from '../containers/ButtonAppBar';
 
 const styles = (theme) =>  ( {
     root: {

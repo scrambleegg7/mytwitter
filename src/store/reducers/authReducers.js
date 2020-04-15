@@ -55,7 +55,9 @@ const authReducer = (state = InitState, action ) => {
             console.log("remove JWT from authreducr.")
             return {
                 ...state,
-                authError: "signout_successed"
+                redirectToReferer: false,
+                data : null,
+                authError: null
             }
 
 
