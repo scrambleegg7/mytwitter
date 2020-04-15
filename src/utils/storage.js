@@ -15,3 +15,33 @@ export function saveStore(store) {
     // noop
   }
 }
+
+export function saveJWTStore(store) {
+    try {
+        const stringifiedStore = JSON.stringify(store);
+        localStorage.setItem('jwt', stringifiedStore);
+    } catch (error) {
+        // noop
+    }
+}
+
+
+export function loadJWTStore() {
+    try {
+        const state = localStorage.getItem('jwt');
+        return JSON.parse(state);
+    } 
+    catch (error) {
+        return undefined;
+    }
+}
+
+export function removeJWTStore() {
+    try {
+        const state = localStorage.removeItem('jwt');
+        return JSON.parse(state);
+    } 
+    catch (error) {
+        return undefined;
+    }
+}

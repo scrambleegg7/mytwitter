@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
-import SignIn from '../user/SignIn';
 
-import { signIn } from '../store/actions/authActions';
+import { connect } from 'react-redux';
+import TweetInput from '../components/TweetInput';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,10 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        signIn: (newUser) => dispatch( signIn(newUser) )
-    }
+    return {}
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(TweetInput);

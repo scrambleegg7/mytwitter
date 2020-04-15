@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignIn from '../user/SignIn';
+import Home from '../components/Home';
 
 import { signIn } from '../store/actions/authActions';
 
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

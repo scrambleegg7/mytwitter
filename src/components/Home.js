@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import TweetInput from './TweetInput';
+import TweetInput from '../containers/TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -46,8 +46,9 @@ class Home extends Component {
         const { classes, tweets } = this.props;
         console.log("posted tweets", tweets)
         return (
+
             <React.Fragment>
- 
+
                 <Grid container className={classes.root}>
                     <Grid container={true} direction="column">
                         <Grid item={true}  xs={12} md={6} lg={10}>
@@ -63,9 +64,6 @@ class Home extends Component {
                                     ))}
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item={true} xs={12} md={6} lg={2}>
-                        user information
                         </Grid>
                     </Grid>
                 </Grid>

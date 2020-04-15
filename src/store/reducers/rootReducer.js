@@ -6,8 +6,8 @@ import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers(
     {
-        auth: authReducer,
         tweets: tweetReducer,
+        auth: authReducer,
     }
 );
 

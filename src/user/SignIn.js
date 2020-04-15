@@ -43,6 +43,7 @@ class SignIn extends Component {
             password: "",
             error: "",
             loading: false,
+            redirectToReferer: false,
         };
 
     }
@@ -65,9 +66,22 @@ class SignIn extends Component {
             email,
             password
         };        
+
+        this.props.signIn(user);
     }
 
-    loginForm = (classes) => (
+    authentication = (token) => {
+        if (typeof window  != "undefined") {
+
+            console.log("save localStorage", token)
+            //localStorage.setItem("jtw", token);
+            //this.setState(   
+            //    {redirectToReferer: true,}
+            //)
+        }
+    }
+
+    loginForm = (classes, authError, loading) => (
 
         <Paper className={classes.padding}>
         <div className={classes.margin}>
@@ -102,6 +116,10 @@ class SignIn extends Component {
             <Grid container justify="center" style={{ marginTop: '10px' }}>
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} onClick={this.hanldeSubmit}  >Login</Button>
             </Grid>
+            <Grid container justify="center" style={{ marginTop: '2x' }}>
+                <Typography component={'span'}  variant="body2" color="secondary">{ authError ?  <p> {authError}  </p>  : null      } </Typography>
+            </Grid>
+
             <Grid container justify="center" style={{ marginTop: '10px' }}>
                     <Typography variant="h3">OR</Typography>
             </Grid>
@@ -109,22 +127,42 @@ class SignIn extends Component {
                 <Button variant="outlined" color="primary" style={{ textTransform: "none" }} component={Link} to={"/signup"}  >SignUp</Button>
             </Grid>
 
+            {loading ? 
+                <Grid container justify="center" style={{ marginTop: '12px' }}>
+                    <Typography variant="h2">LOADING</Typography>
+                </Grid>
+                : 
+                ""
+            }
+
 
         </div>
-    </Paper>
+        </Paper>
 
-    );
+    )
 
 
 
     render() {
         
-        const { classes } = this.props;
+        const { classes,authError, data, redirectToReferer } = this.props;
+        const {loading} = this.state.loading;
+
+        console.log("SignIn autherror", authError)
+        console.log("sign in responsed data", data)
+
+        if (data) {
+            console.log("logined user id ", data.user.email)
+        }
+
+        if (redirectToReferer || data) {
+            return <Redirect  to="/"   />
+        }
 
         return (
             <div>
                 <Container component="main" maxWidth="md">
-                        {this.loginForm(classes) }
+                    {this.loginForm( classes, authError, loading ) }
                 </Container>
              </div>
         );
