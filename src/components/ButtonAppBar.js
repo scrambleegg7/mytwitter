@@ -128,6 +128,23 @@ class ButtonAppBar extends Component {
         //return <Redirect  to="/"   />
     }
     
+    handleProfile =() => {
+
+        //console.log("edit profile: token",this.props.data.token)
+        //console.log("edit profile: userId",this.props.data.user._id )
+
+        const credential = {
+            token: this.props.data.token, 
+            userId: this.props.data.user._id
+        }
+        this.props.readUser(credential);
+        this.setState({
+            open: false
+        })
+        //return <Redirect  to="/"   />
+    }
+
+
 
     menuItem = () => {
 
@@ -155,6 +172,13 @@ class ButtonAppBar extends Component {
                         <ListItemText primary={data.user.email} />
                         </ListItem>
                     </List>    
+                    <List>
+                        <ListItem button  onClick={ this.handleProfile  } >
+                        <ListItemIcon>< PersonIcon /></ListItemIcon>
+                        <ListItemText primary="edit profile" />
+                        </ListItem>
+                    </List>    
+
                     <Divider />            
                     <List>
                         <ListItem button  onClick={ this.handleSignOut  } >

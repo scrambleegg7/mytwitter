@@ -6,7 +6,6 @@ const InitState = {
 }
 
 
-
 const userReducer = (state = InitState, action ) => {
 
     switch(action.type) {
@@ -14,14 +13,17 @@ const userReducer = (state = InitState, action ) => {
 
             return {
                 ...state,
-                authError: "readuser_successed"
+                data: action.data,
+                userError: "readuser_successed"
             }
 
+        case 'READUSER_ERROR':
 
-
-
-
-
+            return {
+                ...state,
+                userError: action.err
+            }
+    
         default:
             return state
 
