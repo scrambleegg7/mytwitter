@@ -1,15 +1,15 @@
 import tweetReducer from './tweetReducer';
 import authReducer from './authReducers';
-import userReducer from './useReducers';
+import userReducer from './userReducers';
 
 import { combineReducers } from 'redux';
 
 
 const rootReducer = combineReducers(
     {
+        user: userReducer,
         tweets: tweetReducer,
         auth: authReducer,
-        user: userReducer,
     }
 );
 

@@ -137,7 +137,7 @@ class ButtonAppBar extends Component {
             token: this.props.data.token, 
             userId: this.props.data.user._id
         }
-        this.props.readUser(credential);
+        this.props.getUser(credential);
         this.setState({
             open: false
         })
@@ -197,14 +197,18 @@ class ButtonAppBar extends Component {
     
     render () {
 
-        const {classes, data, redirectToReferer} = this.props;
+        const {classes, data, redirectToProfile, user} = this.props;
         const { open } = this.state;
 
+
         //console.log("ButtonAppBar:",this.props)
-        //if (!data && redirectToReferer) {
-        //    return <Redirect  to="/"   />
-        //}
-        //console.log("ButtonAppBar data -> : ",data)
+        console.log("ButtonAppBar redirect profile -> : ", redirectToProfile )
+        if (user && redirectToProfile) {
+            const userId = user._id;
+            console.log("User ID:",userId)
+            
+            return <Redirect to={{pathname: `/user/${userId}`}} {...user}   />
+        }
 
         return   (
             <div className={classes.root}>

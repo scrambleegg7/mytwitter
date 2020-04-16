@@ -10,6 +10,8 @@ const mapStateToProps = (state, ownProps) => {
         data : state.auth.data,
         redirectToReferer: state.auth.redirectToReferer,
         loading: state.auth.loading,
+        user: state.user.userData,
+        redirectToProfile: state.user.redirectToProfile,
     }
 };
 

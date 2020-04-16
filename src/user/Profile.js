@@ -49,11 +49,13 @@ class Profile extends Component {
 
     render() {
 
-
+        console.log(this.props.user);
+        
 
         return (
             <div>
                 <Typography variant="h2">Profile Page</Typography>
+                <Typography variant="body2">body</Typography>
 
             </div>
         )
@@ -62,4 +64,4 @@ class Profile extends Component {
 }
 
 
-export default Profile;
+export default withStyles(styles)(Profile);

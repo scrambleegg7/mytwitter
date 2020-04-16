@@ -42,7 +42,7 @@ const handleResponse = (response ) => {
 };
 
 
-export const readUser = (credentials) => {
+export const getUser = (credentials) => {
 
     const userId = credentials.userId;
     const token = credentials.token;
@@ -51,13 +51,13 @@ export const readUser = (credentials) => {
 
         fetch(readuserHost + userId, requestUserOptions(token))
         .then(handleResponse)
-        .then( (data) => {
-            console.log("message (authActions) ", data)
-            dispatch({ type: "READUSER_SUCCESS" })
+        .then( (userData) => {
+            //console.log("message (authActions) ", userData)
+            dispatch({ type: "GETUSER_SUCCESS", userData })
         })
         .catch( (err) => {
             //console.log("signup error", err)            
-            dispatch( { type: 'READUSER_ERROR', err });
+            dispatch( { type: 'GETUSER_ERROR', err });
         })
     }
 }

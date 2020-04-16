@@ -4,12 +4,22 @@ import { v4 as uuid } from 'uuid';
 const signupHost = 'http://localhost:8080/signup';
 const signinHost = 'http://localhost:8080/signin';
 const signoutHost = 'http://localhost:8080/signout';
+const readuserHost = 'http://localhost:8080/user/';
+
+
+const requestUserOptions = (token) => {
+    return ({
+    method: 'GET',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' ,
+        'Authorization' : `Bearer ${token}` }
+    })
+};
 
 const handleResponse = (response ) => {
 
-
     //console.log("handleResponse", response)    
-
     return response.text()
     .then( (text) => {
         const data = text && JSON.parse(text);
@@ -120,4 +130,24 @@ export const signOut = () => {
     }
 
 
+}
+
+export const getUser = (credentials) => {
+
+    const userId = credentials.userId;
+    const token = credentials.token;
+
+    return (dispatch, getState) => {
+
+        fetch(readuserHost + userId, requestUserOptions(token))
+        .then(handleResponse)
+        .then( (data) => {
+            console.log("message (authActions) ", data)
+            dispatch({ type: "READUSER_SUCCESS" })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'READUSER_ERROR', err });
+        })
+    }
 }
