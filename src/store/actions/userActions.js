@@ -16,6 +16,18 @@ const requestUserOptions = (token) => {
     })
 };
 
+const updateUserOptions = (token, user) => {
+    return ({
+    method: 'PUT',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' ,
+        'Authorization' : `Bearer ${token}` },
+    body: JSON.stringify(user)
+    })
+    
+};
+
 
 const handleResponse = (response ) => {
 
@@ -58,6 +70,26 @@ export const getUser = (credentials) => {
         .catch( (err) => {
             //console.log("signup error", err)            
             dispatch( { type: 'GETUSER_ERROR', err });
+        })
+    }
+}
+
+export const updateUser = (credentials) => {
+
+    const userId = credentials.userId;
+    const token = credentials.token;
+
+    return (dispatch, getState) => {
+
+        fetch(readuserHost + userId, updateUserOptions(token, credentials))
+        .then(handleResponse)
+        .then( (userData) => {
+            //console.log("message (authActions) ", userData)
+            dispatch({ type: "UPDATEUSER_SUCCESS", userData })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'UPDATESER_ERROR', err });
         })
     }
 }

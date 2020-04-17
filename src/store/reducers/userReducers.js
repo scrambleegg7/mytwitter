@@ -28,7 +28,27 @@ const userReducer = (state = InitState, action ) => {
                 userError: action.err,
                 redirectToProfile: false
             }
-    
+
+        case 'UPDATEUSER_SUCCESS':
+
+            return {
+                ...state,
+                userData: action.userData,
+                userError: "updateuser_successed",
+                redirectToProfile: false
+
+            }
+
+        case 'UPDATEUSER_ERROR':
+
+            return {
+                ...state,
+                userData: null,
+                userError: action.err,
+                redirectToProfile: false
+            }
+                
+
         default:
             return state
 
