@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { isAuthenticated } from "./index";
 
-const PrivateRoute = ({component: Component, ...rest }) => {
+
+
+const PrivateRoute = ({component: Component, ...rest }) => (
+
+    //const { data } = this.props;
 
     //props means components passed down to this private route component
     <Route
@@ -15,8 +19,9 @@ const PrivateRoute = ({component: Component, ...rest }) => {
             }} />
         )
     }
-    />;
-};
+    />
+    
+);
 
 
 

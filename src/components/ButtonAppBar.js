@@ -205,7 +205,7 @@ class ButtonAppBar extends Component {
         console.log("ButtonAppBar redirect profile -> : ", redirectToProfile )
         if (user && redirectToProfile) {
             const userId = user._id;
-            console.log("User ID:",userId)
+            //console.log("User ID:",userId)
             
             return <Redirect to={{pathname: `/user/${userId}`}} {...user}   />
         }

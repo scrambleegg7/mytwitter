@@ -89,7 +89,7 @@ class Profile extends Component {
 
     componentDidMount = () => {
 
-        console.log(this.props.user);
+        //console.log(this.props.user);
         const user = this.props.user;
 
         if (user) {
@@ -155,6 +155,10 @@ class Profile extends Component {
                 <Typography component={'span'}  variant="body2" color="secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
             </Grid>
 
+            <Grid container justify="center" style={{ marginTop: '2x' }}>
+                
+            </Grid>
+
 
 
         </div>
@@ -166,12 +170,12 @@ class Profile extends Component {
 
 
         const user = this.state;
-        const {classes, authError} = this.props;
+        const {classes, userError} = this.props;
 
         return (
             <div>
                 <Container component="main" maxWidth="md">
-                        {this.loginForm(classes, user) }
+                        {this.loginForm(classes, user, userError) }
                 </Container>
             </div>
         )

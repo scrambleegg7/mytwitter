@@ -28,6 +28,17 @@ const updateUserOptions = (token, user) => {
     
 };
 
+const removeUserOptions = (token) => {
+    return ({
+    method: 'DELETE',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' ,
+        'Authorization' : `Bearer ${token}` },
+    })
+    
+};
+
 
 const handleResponse = (response ) => {
 
@@ -90,6 +101,26 @@ export const updateUser = (credentials) => {
         .catch( (err) => {
             //console.log("signup error", err)            
             dispatch( { type: 'UPDATESER_ERROR', err });
+        })
+    }
+}
+
+export const removeUser = (credentials) => {
+
+    const userId = credentials.userId;
+    const token = credentials.token;
+
+    return (dispatch, getState) => {
+
+        fetch(readuserHost + userId, removeUserOptions(token, credentials))
+        .then(handleResponse)
+        .then( (userData) => {
+            //console.log("message (authActions) ", userData)
+            dispatch({ type: "REMOVEUSER_SUCCESS", userData })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'REMOVEESER_ERROR', err });
         })
     }
 }

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Profile from '../user/Profile';
+import PrivateRoute from '../auth/PrivateRoute';
 
 //import { signOut } from '../store/actions/authActions';
 import {updateUser} from '../store/actions/userActions';
@@ -21,9 +21,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateUser: (oldUser) => dispatch( updateUser(oldUser) ),
-        removeUser: (user) => dispatch( removeUser(user) )
+        removeUser: (oldUser) => dispatch( removeUser(oldUser) )
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);
