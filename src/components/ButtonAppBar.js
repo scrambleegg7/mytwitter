@@ -31,6 +31,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 const drawerWidth = 240;
 
@@ -176,6 +177,12 @@ class ButtonAppBar extends Component {
                         <ListItem button  onClick={ this.handleProfile  } >
                         <ListItemIcon>< PersonIcon /></ListItemIcon>
                         <ListItemText primary="edit profile" />
+                        </ListItem>
+                    </List>    
+                    <List>
+                        <ListItem button component={Link} to="/reset-password" >
+                        <ListItemIcon><VpnKeyIcon/></ListItemIcon>
+                        <ListItemText primary="Change password" />
                         </ListItem>
                     </List>    
 

@@ -5,6 +5,7 @@ const signupHost = 'http://localhost:8080/signup';
 const signinHost = 'http://localhost:8080/signin';
 const signoutHost = 'http://localhost:8080/signout';
 const readuserHost = 'http://localhost:8080/user/';
+const resetPasswordHost = 'http://localhost:8080/reset-password/';
 
 
 const requestUserOptions = (token) => {
@@ -37,6 +38,16 @@ const handleResponse = (response ) => {
         return data;
     })
 
+};
+
+const requestPutOptions = (data) => {
+    return ({
+    method: 'PUT',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+    })
 };
 
 const requestOptions = (user) => {
@@ -150,4 +161,30 @@ export const getUser = (credentials) => {
             dispatch( { type: 'READUSER_ERROR', err });
         })
     }
+}
+
+export const resetPassword = (credentials) => {
+
+    //const email = credentials.email;
+    const user = {
+        email: credentials.email,
+        newPassword: credentials.newpassword
+    }
+
+    return (dispatch, getState) => {
+
+        console.log("signin authActions:", user)
+
+        fetch(resetPasswordHost, requestPutOptions(user))
+        .then(handleResponse)
+        .then( (data) => {
+            //console.log(" signin (authActions) ", data)
+            dispatch({ type: "RESETPASS_SUCCESS"  , data   }   )
+        })
+        .catch( (err) => {
+            console.log("signin error", err)            
+            dispatch( { type: 'RESETPASS_ERROR', err });
+        })
+    }
+
 }

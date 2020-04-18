@@ -11,9 +11,9 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-//import Link from '@material-ui/core/Link';
+import Link from '@material-ui/core/Link';
 
-import { Link, Redirect } from "react-router-dom";
+//import { Link, Redirect } from "react-router-dom";
 
 const styles = theme => ({
 
@@ -155,10 +155,8 @@ class Profile extends Component {
                 <Typography component={'span'}  variant="body2" color="secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
             </Grid>
 
-            <Grid container justify="center" style={{ marginTop: '2x' }}>
-                
-            </Grid>
-
+            <Link  href={"/"}>to Post Board screen</Link>
+            
 
 
         </div>
