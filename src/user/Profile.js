@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select';
 
 import Link from '@material-ui/core/Link';
 
+import DeleteUser from '../containers/DeleteUser';
 //import { Link, Redirect } from "react-router-dom";
 
 const styles = theme => ({
@@ -154,6 +155,8 @@ class Profile extends Component {
             <Grid container justify="center" style={{ marginTop: '2x' }}>
                 <Typography component={'span'}  variant="body2" color="secondary">{ authError ?  <p>  {authError}  </p> : null      } </Typography>
             </Grid>
+
+            <DeleteUser />
 
             <Link  href={"/"}>to Post Board screen</Link>
             

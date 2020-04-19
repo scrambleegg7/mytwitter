@@ -1,7 +1,8 @@
 
 
-import moment from 'moment';
-import { v4 as uuid } from 'uuid';
+//import moment from 'moment';
+//import { v4 as uuid } from 'uuid';
+import { removeJWTStore } from '../../utils/storage';
 
 const readuserHost = 'http://localhost:8080/user/';
 
@@ -116,6 +117,7 @@ export const removeUser = (credentials) => {
         .then(handleResponse)
         .then( (userData) => {
             //console.log("message (authActions) ", userData)
+            removeJWTStore()
             dispatch({ type: "REMOVEUSER_SUCCESS", userData })
         })
         .catch( (err) => {

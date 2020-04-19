@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Home from '../components/Home';
+import TweetHome from '../post/TweetHome';
 
-import { signIn } from '../store/actions/authActions';
+import { getPosts } from '../store/actions/tweetActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,14 +10,16 @@ const mapStateToProps = (state, ownProps) => {
         data : state.auth.data,
         redirectToReferer: state.auth.redirectToReferer,
         loading: state.auth.loading,
+        tweets: state.tweets.data,
+        tweetError: state.tweets.postError,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signIn: (newUser) => dispatch( signIn(newUser) )
+        getPosts: (token) => dispatch( getPosts(token) )
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(TweetHome);

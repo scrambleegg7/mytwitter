@@ -1,4 +1,4 @@
-import tweetReducer from './tweetReducer';
+import tweetReducer from './tweetReducers';
 import authReducer from './authReducers';
 import userReducer from './userReducers';
 

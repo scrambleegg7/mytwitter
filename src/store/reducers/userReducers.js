@@ -53,7 +53,7 @@ const userReducer = (state = InitState, action ) => {
             return {
                 ...state,
                 userData: action.userData,
-                userError: "removeuser_successed",
+                userError: "remove user_successed",
                 redirectToProfile: false
 
             }

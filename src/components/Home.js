@@ -28,9 +28,6 @@ class Home extends Component {
 
     onSubmit = text => {
 
-
-
-
         const {
           createTweet,
         

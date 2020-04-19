@@ -17,6 +17,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Home from '../components/Home';
+import TweetHome from '../containers/TweetHome';
+
 
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -256,6 +258,8 @@ class ButtonAppBar extends Component {
                 </IconButton>
                 </div>
                 <Divider />
+                    Image
+                <Divider />
 
                     { this.menuItem()  }
                 
@@ -268,7 +272,7 @@ class ButtonAppBar extends Component {
                 >
                     <div className={classes.drawerHeader} />
 
-                    <Home />
+                    <TweetHome />
 
                 </main>
             </div>
