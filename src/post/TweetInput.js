@@ -17,6 +17,20 @@ class TweetInput extends Component {
 
     constructor(props) {
         super(props)
+
+
+
+        const { data } = this.props;
+
+        this.state = {
+            title: "",
+            body: "",
+            photo: "", 
+            user: data.user.email, 
+            userId: data.user._id,
+            token: data.token,
+            loading: false,
+        }
     }
 
     static propTypes = {
@@ -25,18 +39,64 @@ class TweetInput extends Component {
     };
 
     componentDidMount = () => {
+
+        this.postData = new FormData();
+
         
     }
 
-    static defaultProps = {
-        onSubmit: (v,e) => {
-            console.log("TweetInput",v )
-            //console.log("TweetInput event",e )
-            
-        },
+    isValid = () => {
+        const { body } = this.state;
+        if (body.length === 0) {
+            this.setState({ error: "Post fields are required", loading: false });
+            return false;
+        }
+        return true;
     };
 
+
+    handleChange = name => event => {
+        this.setState({ error: "" });
+
+        const value = event.target.value
+        this.postData.set(name, value);
+        this.setState({ [name]: value });
+    };    
+
     input = React.createRef();
+
+    
+    handlePost = (e) => {
+        e.preventDefault();
+
+        this.setState({ loading: true });
+
+        const { classes, data } = this.props;
+        const { value } = this.input.current;
+        this.postData.append("title", "title");
+        this.postData.append("body", this.state.body);
+
+        this.postData.set("title", "title");
+        
+        //console.log(this.postData.get("body"))
+        
+        const credentials = {
+            userId: data.user._id,
+            token: data.token,
+            post: this.postData,
+        }
+
+        if (!value.trim()) {
+            return;
+        }
+        console.log("TweetInput: entry data ->", credentials)
+
+        this.input.current.value = '';
+        
+        this.props.createPost(credentials);
+
+
+    }
 
     onSubmit = event => {
         event.preventDefault();
@@ -56,14 +116,16 @@ class TweetInput extends Component {
 
         return (
             <Paper className={classes.paper}>
-            <form onSubmit={this.onSubmit} autoComplete="off">
-                <TextField
+            <form onSubmit={this.handlePost} autoComplete="off">
+
+                <TextField id="body"
                 required
                 fullWidth
                 multiline
                 rows={2}
                 placeholder="What's happening?"
                 inputRef={this.input}
+                onChange={this.handleChange("body")}
                 />
                 <Grid container justify="flex-end">
                 <Grid item>

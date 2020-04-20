@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import TweetInput from '../post/TweetInput';
 
-import { createTweet } from '../store/actions/tweetActions';
+import { createPost } from '../store/actions/tweetActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -18,7 +18,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createTweet: (post) => dispatch( createTweet(post) ) 
+        createPost: (post) => dispatch( createPost(post) ) 
     }
 }
 

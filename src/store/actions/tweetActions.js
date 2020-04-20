@@ -30,9 +30,8 @@ const createPostOptions = (token, body) => {
     method: 'POST',
     headers: { 
         Accept: 'application/json',
-        'Content-Type': 'application/json' ,
         'Authorization' : `Bearer ${token}` },
-    body: JSON.stringify(body)
+    body: body
     })
     
 };
@@ -52,14 +51,16 @@ export const createPost = (credentials) => {
 
     const userId = credentials.userId;
     const token = credentials.token;
-    const post = credentials.post
+    const body = credentials.body
+
+    console.log("createPost(tweetActions) body -> ", body)
 
     return (dispatch, getState) => {
 
-        fetch(createPostHost + userId, createPostOptions(token, post))
+        fetch(createPostHost + userId, createPostOptions(token, body))
         .then(handleResponse)
         .then( (data) => {
-            console.log("create post (tweetActions) ", data)
+            console.log("createPost (tweetActions) ", data)
             dispatch({ type: "POST_SUCCESS",   data  })
         })
         .catch( (err) => {

@@ -74,7 +74,9 @@ class TweetHome extends Component {
                                 <Grid container direction="column" justify="center">
                                     <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
                                         {tweets.posts.map(tweet => ( 
-                                            <Grid item={true}  xs={12} md={3} lg={3} key={tweet.id} >
+
+
+                                            <Grid item={true}  xs={12} md={3} lg={3} key={tweet._id} >
                                             <MyTweet {...tweet} key={tweet._id} />
                                             </Grid>
                                         ))}
