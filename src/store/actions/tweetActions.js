@@ -78,8 +78,8 @@ export const getPosts = (token) => {
         fetch(getPostsHost, getPostsOptions(token))
         .then(handleResponse)
         .then( (data) => {
-            console.log("post (tweetActions) ", data)
-            dispatch({ type: "GETPOST_SUCCESS",   data  })
+            console.log("getPosts (tweetActions) ", data.posts)
+            dispatch({ type: "GETPOST_SUCCESS",  data:  data.posts  })
         })
         .catch( (err) => {
             //console.log("signup error", err)            

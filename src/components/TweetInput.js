@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Paper, TextField, Button, Grid, withStyles } from '@material-ui/core';
 
+import { connect } from 'react-redux';
+
+
 const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 2,
@@ -17,6 +20,9 @@ class TweetInput extends React.Component {
         onSubmit: PropTypes.func,
     };
 
+    componentDidMount = () => {
+        this.postData = new FormData();
+    }
 
     static defaultProps = {
         onSubmit: (v,e) => {
@@ -36,13 +42,29 @@ class TweetInput extends React.Component {
             return;
         }
 
-        this.props.onSubmit(value, event);
+        const { classes, data } = this.props;
+        //console.log("TweetInput data(onSubmit) -> : ", data)
+
+        this.postData.set("title", "title");
+        this.postData.set("body", value);
+
+        console.log("TweetInput FormData(onSubmit)", this.postData.entries() )
+
+        const credentials = {
+            userId: data.user._id,
+            token: data.token,
+            body: this.postData,
+        }
+
+        this.props.onSubmit(credentials, event);
         this.input.current.value = '';
 
     };
 
     render() {
         const { classes, data } = this.props;
+
+        //console.log("TweetInput data -> : ", data)
 
         return (
             <Paper className={classes.paper}>
@@ -73,4 +95,21 @@ class TweetInput extends React.Component {
     }
 }
 
-export default withStyles(styles)(TweetInput);
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        authError: state.auth.authError,
+        data : state.auth.data,
+        redirectToReferer: state.auth.redirectToReferer,
+        loading: state.auth.loading,
+        tweets: state.tweets.postData,
+        tweetError: state.tweets.postError,
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+    }
+}
+
+export default withStyles(styles)( connect(mapStateToProps, mapDispatchToProps)(TweetInput) );

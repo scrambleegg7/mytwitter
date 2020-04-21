@@ -89,8 +89,8 @@ const styles = theme => ({
 
 const MyTweet = ({
     classes,
-    id,
-    text,
+    _id: id,
+    body: text,
     createdAt,
     highlighted,
     }) => {

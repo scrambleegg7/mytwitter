@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import TweetInput from '../containers/TweetInput';
+import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createTweet } from '../store/actions/tweetActions';
+import { createTweet, createPost, getPosts } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
 
@@ -24,61 +24,92 @@ const styles = (theme) =>  ( {
 
 class Home extends Component {
 
+    constructor(props) {
+        super();
+        console.log("Home constructor", props);
+        props.getPosts(    props.data.token );
+    }
 
+    componentDidMount = () => {
+        console.log("Home componentDidMount() ");
+        this.props.getPosts(    this.props.data.token );
+    }
+
+    componentDidUpdate = () => {        
+        console.log("Home componentDidUpdate() ");
+    }
 
     onSubmit = text => {
 
-        const {
-          createTweet,
-        
-        } = this.props;
-        console.log(this.props)
-        console.log("post message:", text)
-        createTweet({ userId:"user123", text });
-      };
+        const { createTweet,createPost } = this.props;
+        //console.log(this.props)
+        console.log("Home post message (onSubmit):", text)
+        //createTweet({ userId:"user123", text });
+        createPost(text);
+    
+    };
     
 
     render () {
         
-        const { classes, tweets } = this.props;
-        console.log("posted tweets", tweets)
-        return (
+        const { classes, tweets, tweetsPost } = this.props;
+        console.log("Home all tweets posted (consolidated after posting)", tweetsPost)
 
-            <React.Fragment>
+        if (tweetsPost) {
 
-                <Grid container className={classes.root}>
-                    <Grid container={true} direction="column">
-                        <Grid item={true}  xs={12} md={6} lg={10}>
-                            <TweetInput onSubmit={this.onSubmit} />
-                            
-                            <Grid container direction="column" justify="center">
+            console.log("Home posted tweets", tweetsPost)
+            //const tweets = tweets.posts;
+            
+            return (
+                <React.Fragment>
+                    <Grid container className={classes.root}>
+                        <Grid container={true} direction="column">
+                            <Grid item={true}  xs={12} md={6} lg={10}>
+                                <TweetInput onSubmit={this.onSubmit} />
+                                
+                                <Grid container direction="column" justify="center">
 
-                                <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
-                                    {tweets.map(tweet => ( 
-                                        <Grid item={true}  xs={12} md={3} lg={3} key={tweet.id} >
-                                        <MyTweet {...tweet} key={tweet.id} />
-                                        </Grid>
-                                    ))}
+                                    <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        {tweetsPost.map(tweet => (    
+                                            
+                                            (<Grid item={true}  xs={12} md={3} lg={3} key={tweet._id} >
+                                                {tweet && ( <MyTweet {...tweet} key={tweet.id} /> ) }
+                                            </Grid>) 
+                        
+                                            
+                                        ))}
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </React.Fragment>
-        )
+                </React.Fragment>
+            )
         }
+        else {
+            return (
+                <div>loading....</div>
+            )
+        }
+    }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => (
+    {
+        tweets: state.tweets.data,
+        tweetsPost: state.tweets.postData,
+        data : state.auth.data,
 
-    tweets: state.tweets,
-
-  });
+    }
+);
 
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        createTweet: (text => dispatch(createTweet(text)))
+        createTweet: (text => dispatch(createTweet(text))),
+        createPost: (post) => dispatch( createPost(post) ) , 
+        getPosts: (token) => dispatch( getPosts(token) ),
+
     }
 }
 

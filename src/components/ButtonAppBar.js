@@ -272,7 +272,7 @@ class ButtonAppBar extends Component {
                 >
                     <div className={classes.drawerHeader} />
 
-                    <TweetHome />
+                    <Home />
 
                 </main>
             </div>

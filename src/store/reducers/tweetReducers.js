@@ -11,10 +11,12 @@ const tweetReducer = (state = InitState, action ) => {
     switch(action.type) {
 
         case 'POST_SUCCESS':
-            console.log("create_tweet from tweetReducer ", action.data  )
+            console.log("create_post new data from tweetReducer ", action.data  )
+            console.log("create_post old state from tweetReducer ", ...state.postData  )
+
             return {
                 //...state, 
-                data: [...state, action.data],
+                postData: state.postData.concat([action.data]),
                 postError: null
             }
             
@@ -30,7 +32,7 @@ const tweetReducer = (state = InitState, action ) => {
             console.log("get_tweet from tweetReducer ", action.data  )
             return {
                 ...state, 
-                data: action.data,
+                postData: action.data,
                 postError: "ok"
             }
             
@@ -44,6 +46,8 @@ const tweetReducer = (state = InitState, action ) => {
     
         case 'CREATE_TWEET':
             console.log("create_tweet from tweetReducer ", action.payload  )
+            console.log("create_tweet old state from tweetReducer ", ...state  )
+            
             saveStore( [...state, action.payload] )
             return (
                 [...state, action.payload]
