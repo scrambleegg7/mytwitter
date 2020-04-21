@@ -103,9 +103,8 @@ const MyTweet = ({
     const posterCreated = postedBy ? postedBy.created : "";
 
 
-    console.log(body)
-
-    console.log(posterId, posterFirstName, posterLastName, posterEmail, posterBackGroundColor, posterCreated)
+    //console.log(body)
+    //console.log(posterId, posterFirstName, posterLastName, posterEmail, posterBackGroundColor, posterCreated)
 
     const image = text.match(imageUrlRe);
     const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];

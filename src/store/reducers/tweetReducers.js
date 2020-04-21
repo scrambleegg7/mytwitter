@@ -13,8 +13,8 @@ const tweetReducer = (state = InitState, action ) => {
         case 'POST_SUCCESS':
             console.log("create_tweet from tweetReducer ", action.data  )
             return {
-                ...state, 
-                data: action.data,
+                //...state, 
+                data: [...state, action.data],
                 postError: null
             }
             
@@ -22,7 +22,7 @@ const tweetReducer = (state = InitState, action ) => {
             console.log("create_tweet_error from tweetReducer ", action.err  )
             return {
                 ...state, 
-                data: null,
+                single_data: null,
                 postError: action.err
             }
 

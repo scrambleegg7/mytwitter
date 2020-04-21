@@ -29,30 +29,24 @@ class TweetHome extends Component {
         this.state = {
             tweets: [],
             loading : true,
+            data : this.props.data
         }
 
-        const data = this.props.data;
-        this.props.getPosts(data.token);                
+        this.props.getPosts(this.state.data.token);                
     }
 
-    componentDidMount = () => {
+    onSubmit = post => {
 
-        const { data, tweets } = this.props;
-        console.log("TweetHome componentDidMount", data)
-        console.log("TweetHome componentDidMount", tweets)
+        const { createPost } = this.props;
+        console.log("post message:", post)
+        createPost(  post );
 
-        
 
-        //this.props.getPosts(data.token);
-    }
-
-    componentDidUpdate = (prevProps) => {
-
-        const {data, auth, tweets} = this.props;
-        console.log("this.props.tweets --> " + data)
-        console.log("prevProps.tweets --> " + prevProps)
-
-    }
+        this.props.getPosts(this.state.data.token);      
+        this.setState({
+            loading: false
+        })
+    };
 
     render () {
 
@@ -69,7 +63,7 @@ class TweetHome extends Component {
                     <Grid container className={classes.root}>
                         <Grid container={true} direction="column">
                             <Grid item={true}  xs={12} md={6} lg={10}>
-                                <TweetInput />
+                                <TweetInput  onSubmit={this.onSubmit} />
                                 
                                 <Grid container direction="column" justify="center">
                                     <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
@@ -94,7 +88,7 @@ class TweetHome extends Component {
             console.log("TweetHome tweets is empty.");
             //const tweets = [];
             return (
-                <div>loading...</div>
+                <div>data loading...</div>
             )
         }
         }

@@ -73,8 +73,8 @@ class TweetInput extends Component {
 
         const { classes, data } = this.props;
         const { value } = this.input.current;
-        this.postData.append("title", "title");
-        this.postData.append("body", this.state.body);
+        //this.postData.append("title", "title");
+        //this.postData.append("body", this.state.body);
 
         this.postData.set("title", "title");
         
@@ -83,7 +83,7 @@ class TweetInput extends Component {
         const credentials = {
             userId: data.user._id,
             token: data.token,
-            post: this.postData,
+            body: this.postData,
         }
 
         if (!value.trim()) {
@@ -93,8 +93,8 @@ class TweetInput extends Component {
 
         this.input.current.value = '';
         
-        this.props.createPost(credentials);
-
+        //this.props.createPost(credentials);
+        this.props.onSubmit(credentials);
 
     }
 

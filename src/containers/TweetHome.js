@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import TweetHome from '../post/TweetHome';
 
-import { getPosts } from '../store/actions/tweetActions';
+import { getPosts, createPost } from '../store/actions/tweetActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,7 +17,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getPosts: (token) => dispatch( getPosts(token) )
+        getPosts: (token) => dispatch( getPosts(token) ),
+        createPost: (post) => dispatch( createPost(post) ) 
     }
 }
 
