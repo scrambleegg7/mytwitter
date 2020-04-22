@@ -91,9 +91,19 @@ const MyTweet = ({
     classes,
     _id: id,
     body: text,
-    createdAt,
-    highlighted,
+    created,
+    postedBy,
     }) => {
+
+    const posterId = postedBy ? postedBy._id : "";
+    const posterFirstName = postedBy ? postedBy.firstname : "";
+    const posterLastName = postedBy ? postedBy.lastname : "";
+    const posterEmail = postedBy ? postedBy.email : "";
+    const posterBackGroundColor = postedBy ? postedBy.backgroundColor : "";
+    const posterCreated = postedBy ? postedBy.created : "";
+    
+    const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
+    console.log(avatarName)
 
     const image = text.match(imageUrlRe);
     const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
@@ -149,13 +159,13 @@ const MyTweet = ({
                     backgroundColor: colorFrom(id),
                 }}
                 >
-                {id}
+                {avatarName}
                 </Avatar>
             }
-            title={id}
+            title={posterEmail}
             subheader={
                 <Link to={`/tweet/${id}`} className={classes.link}>
-                {moment(createdAt).fromNow()}
+                {moment(created).fromNow()}
                 </Link>
             }
             />

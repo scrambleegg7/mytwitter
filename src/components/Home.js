@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { createTweet, createPost, getPosts } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
+import { Link, Redirect } from "react-router-dom";
+
 
 const styles = (theme) =>  ( {
     root: {
@@ -27,12 +29,20 @@ class Home extends Component {
     constructor(props) {
         super();
         console.log("Home constructor", props);
-        props.getPosts(    props.data.token );
+
+        this.state = {
+            isLogin:false
+        }
+
+        if (props.data) {
+            props.getPosts(    props.data.token );
+        }
+
     }
 
     componentDidMount = () => {
         console.log("Home componentDidMount() ");
-        this.props.getPosts(    this.props.data.token );
+        //this.props.getPosts(    this.props.data.token );
     }
 
     componentDidUpdate = () => {        
@@ -52,8 +62,13 @@ class Home extends Component {
 
     render () {
         
-        const { classes, tweets, tweetsPost } = this.props;
+        const { classes, tweets, data , tweetsPost } = this.props;
         console.log("Home all tweets posted (consolidated after posting)", tweetsPost)
+
+        if (!data) {
+            return <Redirect to={{pathname: "/signin" }} />
+        }
+
 
         if (tweetsPost) {
 
