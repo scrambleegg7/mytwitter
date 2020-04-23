@@ -1,10 +1,12 @@
 import moment from 'moment';
-import { saveStore, loadStore } from '../../utils/storage';
+//import { saveStore, loadStore } from '../../utils/storage';
 
-const loadstore = loadStore()
+//const loadstore = loadStore()
 
-const InitState = loadstore ? loadstore : []
-
+const InitState = {
+    postData: null,
+    postError: null,
+}
 
 const tweetReducer = (state = InitState, action ) => {
 
@@ -28,6 +30,24 @@ const tweetReducer = (state = InitState, action ) => {
                 postError: action.err
             }
 
+        case 'REMOVEPOST_SUCCESS':
+            console.log("remove_post new data from tweetReducer ", action.data  )
+            console.log("remove_post old state from tweetReducer ", ...state.postData  )
+
+            return {
+                //...state, 
+                postData: state.postData.filter(item => item._id != action.data._id),
+                postError: null
+            }
+            
+        case 'REMOVEPOST_ERROR':
+            console.log("create_tweet_error from tweetReducer ", action.err  )
+            return {
+                ...state, 
+                single_data: null,
+                postError: action.err
+            }
+    
         case 'GETPOST_SUCCESS':
             console.log("get_tweet from tweetReducer ", action.data  )
             return {
@@ -43,7 +63,8 @@ const tweetReducer = (state = InitState, action ) => {
                 data: null,
                 postError: action.err
             }
-    
+        
+        {/*
         case 'CREATE_TWEET':
             console.log("create_tweet from tweetReducer ", action.payload  )
             console.log("create_tweet old state from tweetReducer ", ...state  )
@@ -56,7 +77,7 @@ const tweetReducer = (state = InitState, action ) => {
         case 'CREATE_TWEET_ERROR':
             console.log("create_tweet_error from tweetReducer ", action.err  )
             return state;
-    
+        */}
         default:
             return state;   
     }

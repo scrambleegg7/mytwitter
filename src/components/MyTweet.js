@@ -84,16 +84,20 @@ const styles = theme => ({
 
 });
 
+//
+//MyTweet represents single card containing each post message, which holds created date/user id.
+// 
 
+const MyTweet = (props) => {
 
+    const {classes, tweet, data, onRemovePost} = props;
 
-const MyTweet = ({
-    classes,
-    _id: id,
-    body: text,
-    created,
-    postedBy,
-    }) => {
+    const postedBy = tweet.postedBy;
+    const text = tweet.body;
+    const created = tweet.created;
+    const id = tweet._id;
+
+    const loginUserId = data.user._id;
 
     const posterId = postedBy ? postedBy._id : "";
     const posterFirstName = postedBy ? postedBy.firstname : "";
@@ -103,7 +107,7 @@ const MyTweet = ({
     const posterCreated = postedBy ? postedBy.created : "";
     
     const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
-    console.log(avatarName)
+    //console.log(avatarName)
 
     const image = text.match(imageUrlRe);
     const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
@@ -115,6 +119,8 @@ const MyTweet = ({
     const [anchorEl, setAnchorEl ] = useState(null);
 
     const theme = useTheme();
+
+    const isValidUserId = ( loginUserId ===  posterId );
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -136,6 +142,17 @@ const MyTweet = ({
         setAnchorEl(null);
     }; 
 
+    const onRemovePostItem = () => {
+
+        const credential = {
+            postId: id,
+            token: data.token,
+        }
+
+        setAnchorEl(null);
+        onRemovePost(credential);
+
+    }
     
     return (
 
@@ -166,6 +183,8 @@ const MyTweet = ({
             subheader={
                 <Link to={`/tweet/${id}`} className={classes.link}>
                 {moment(created).fromNow()}
+                loginid: {loginUserId}
+                creatduserid: {posterId}
                 </Link>
             }
             />
@@ -178,39 +197,44 @@ const MyTweet = ({
                 {LinkPreviews}
             </CardContent>
             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                <ShareIcon />
-                                </IconButton>
-                                <IconButton
+                <IconButton
                                    
-                                    aria-haspopup="true"
-                                    aria-owns={anchorEl ? "simple-menu" : null}
-                                    className={clsx(classes.expand, {
-                                        [classes.expandOpen]: expanded,
-                                    })}
-                                    onClick={ MenuhandleClick }
-                                    aria-expanded={expanded}
-                                    aria-label="show more"
-                                    >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                                <Menu
-                                    id="simple-menu"
-                                    anchorEl={anchorEl}
-                                    keepMounted
-                                    open={Boolean(anchorEl)}
-                                    onClose={MenuhandleClose}
-                                >
-                                    <MenuItem onClick={MenuhandleClose}>Edit</MenuItem>
-                                    <MenuItem onClick={MenuhandleClose}>Delete</MenuItem>
-                                    <MenuItem onClick={MenuhandleClose}>Share</MenuItem>
-                                </Menu>
- 
+                    aria-haspopup="true"
+                    aria-owns={anchorEl ? "simple-menu" : null}
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded,
+                    })}
+                    onClick={ MenuhandleClick }
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                    >
+                    <ExpandMoreIcon />
+                </IconButton>
+            </CardActions>
 
+            {isValidUserId ?     
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={MenuhandleClose}
+                >
+                    <MenuItem onClick={MenuhandleClose}>Edit</MenuItem>
+                    <MenuItem onClick={onRemovePostItem}>Delete</MenuItem>
+                </Menu>
+                        :
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={MenuhandleClose}
+                >
+                    <MenuItem onClick={MenuhandleClose}>comment</MenuItem>
+                </Menu>
+            }
+ 
             <Dialog
                 open={open}
                 TransitionComponent={Transition}

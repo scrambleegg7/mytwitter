@@ -2,6 +2,8 @@ import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
 const createPostHost = 'http://localhost:8080/post/new/';
+const removePostHost = 'http://localhost:8080/post/';
+
 const getPostsHost = "http://localhost:8080/posts"
 
 
@@ -21,6 +23,17 @@ const handleResponse = (response ) => {
         return data;
     })
 
+};
+
+const removePostOptions = (token) => {
+    return ({
+    method: 'DELETE',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' ,
+        'Authorization' : `Bearer ${token}` },
+    })
+    
 };
 
 
@@ -84,6 +97,29 @@ export const getPosts = (token) => {
         .catch( (err) => {
             //console.log("signup error", err)            
             dispatch( { type: 'GETPOST_ERROR', err });
+        })
+    }
+}
+
+
+export const removePost = (credentials) => {
+
+    const postId = credentials.postId;
+    const token = credentials.token;
+    
+    //console.log("removePost(tweetActions) -> ")
+
+    return (dispatch, getState) => {
+
+        fetch(removePostHost + postId, removePostOptions(token))
+        .then(handleResponse)
+        .then( (data) => {
+            console.log("removePost (tweetActions) ", data)
+            dispatch({ type: "REMOVEPOST_SUCCESS",   data  })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'REMOVEPOST_ERROR', err });
         })
     }
 }

@@ -4,7 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createTweet, createPost, getPosts } from '../store/actions/tweetActions';
+import { createTweet, createPost, getPosts, removePost } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
 import { Link, Redirect } from "react-router-dom";
@@ -30,8 +30,14 @@ class Home extends Component {
         super();
         console.log("Home constructor", props);
 
+        const data = props.data;
+
         this.state = {
-            isLogin:false
+            isLogin:false,
+            isDeleted: false,
+            token: data.token,
+            userId: data.user_id,
+            email:data.user.email, 
         }
 
         if (props.data) {
@@ -43,15 +49,29 @@ class Home extends Component {
     componentDidMount = () => {
         console.log("Home componentDidMount() ");
         //this.props.getPosts(    this.props.data.token );
+
     }
 
     componentDidUpdate = () => {        
-        console.log("Home componentDidUpdate() ");
+        console.log("Home componentDidUpdate() call getPosts.");
+        //this.props.getPosts( this.state.token );    
+    }
+
+    onRemovePost = (credential) => {
+        const { removePost } = this.props;
+        console.log("Home removePost (onSubmit):", credential);
+        removePost(credential);
+
+        //this.setState({
+        //    isDeleted: true,
+        //})
+        //console.log("Home removePost -> getPosts", credential);
+        //this.props.getPosts( this.state.token );    
     }
 
     onSubmit = text => {
 
-        const { createTweet,createPost } = this.props;
+        const { createPost } = this.props;
         //console.log(this.props)
         console.log("Home post message (onSubmit):", text)
         //createTweet({ userId:"user123", text });
@@ -62,13 +82,17 @@ class Home extends Component {
 
     render () {
         
-        const { classes, tweets, data , tweetsPost } = this.props;
+        const { classes, tweets, data , tweetsPost, tweetsError } = this.props;
         console.log("Home all tweets posted (consolidated after posting)", tweetsPost)
 
         if (!data) {
             return <Redirect to={{pathname: "/signin" }} />
         }
 
+        if (this.state.isDeleted && !tweetsError) {
+            console.log("isDeleted:true non tweetError.")
+            //return <Redirect to={ "/" } />
+        }
 
         if (tweetsPost) {
 
@@ -88,7 +112,7 @@ class Home extends Component {
                                         {tweetsPost.map(tweet => (    
                                             
                                             (<Grid item={true}  xs={12} md={3} lg={3} key={tweet._id} >
-                                                {tweet && ( <MyTweet {...tweet} key={tweet.id} /> ) }
+                                                {tweet && ( <MyTweet tweet={tweet} data={data} onRemovePost={this.onRemovePost} key={tweet.id} /> ) }
                                             </Grid>) 
                         
                                             
@@ -113,6 +137,8 @@ const mapStateToProps = state => (
     {
         tweets: state.tweets.data,
         tweetsPost: state.tweets.postData,
+        tweetsError: state.tweets.postError,
+        
         data : state.auth.data,
 
     }
@@ -122,7 +148,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         createTweet: (text => dispatch(createTweet(text))),
-        createPost: (post) => dispatch( createPost(post) ) , 
+        createPost: (post) => dispatch( createPost(post) ) ,
+        removePost: (post) => dispatch( removePost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
 
     }
