@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 const createPostHost = 'http://localhost:8080/post/new/';
 const removePostHost = 'http://localhost:8080/post/';
+const updatePostHost = 'http://localhost:8080/post/';
 
 const getPostsHost = "http://localhost:8080/posts"
 
@@ -36,8 +37,6 @@ const removePostOptions = (token) => {
     
 };
 
-
-
 const createPostOptions = (token, body) => {
     return ({
     method: 'POST',
@@ -48,6 +47,18 @@ const createPostOptions = (token, body) => {
     })
     
 };
+
+const updatePostOptions = (token, post) => {
+    return ({
+    method: 'PUT',
+    headers: { 
+        Accept: 'application/json',
+        'Authorization' : `Bearer ${token}` },
+    body: post
+    })
+    
+};
+
 
 const getPostsOptions = (token) => {
     return ({
@@ -79,6 +90,29 @@ export const createPost = (credentials) => {
         .catch( (err) => {
             //console.log("signup error", err)            
             dispatch( { type: 'POST_ERROR', err });
+        })
+    }
+}
+
+export const updatePost = (credentials) => {
+
+    const postId = credentials.postId;
+    const token = credentials.token;
+    const body = credentials.body
+
+    console.log("updatePost(tweetActions) body -> ", body)
+
+    return (dispatch, getState) => {
+
+        fetch(updatePostHost + postId, updatePostOptions(token, body))
+        .then(handleResponse)
+        .then( (data) => {
+            console.log("updatePost (tweetActions) ", data)
+            dispatch({ type: "UPDATEPOST_SUCCESS",   data  })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'UPDATEPOST_ERROR', err });
         })
     }
 }

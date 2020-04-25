@@ -30,6 +30,24 @@ const tweetReducer = (state = InitState, action ) => {
                 postError: action.err
             }
 
+            case 'UPDATEPOST_SUCCESS':
+                console.log("update_post new data from tweetReducer ", action.data  )
+                console.log("update_post old state from tweetReducer ", ...state.postData  )
+    
+                return {
+                    //...state, 
+                    postData: state.postData.concat([action.data]),
+                    postError: null
+                }
+                
+            case 'UPDATEPOST_ERROR':
+                console.log("update_tweet_error from tweetReducer ", action.err  )
+                return {
+                    ...state, 
+                    single_data: null,
+                    postError: action.err
+                }
+    
         case 'REMOVEPOST_SUCCESS':
             console.log("remove_post new data from tweetReducer ", action.data  )
             console.log("remove_post old state from tweetReducer ", ...state.postData  )

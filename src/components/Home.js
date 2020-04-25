@@ -4,7 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createTweet, createPost, getPosts, removePost } from '../store/actions/tweetActions';
+import { createTweet, createPost, getPosts, removePost, updatePost } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
 import { Link, Redirect } from "react-router-dom";
@@ -35,9 +35,9 @@ class Home extends Component {
         this.state = {
             isLogin:false,
             isDeleted: false,
-            token: data.token,
-            userId: data.user_id,
-            email:data.user.email, 
+            token: data ? data.token : "",
+            userId: data ? data.user._id : "",
+            email:data ? data.user.email : "" , 
         }
 
         if (props.data) {
@@ -68,6 +68,19 @@ class Home extends Component {
         //console.log("Home removePost -> getPosts", credential);
         //this.props.getPosts( this.state.token );    
     }
+
+    onUpdatePost = (credential) => {
+        const { removePost } = this.props;
+        console.log("Home updatePost (onSubmit):", credential);
+        updatePost(credential);
+
+        //this.setState({
+        //    isDeleted: true,
+        //})
+        //console.log("Home removePost -> getPosts", credential);
+        //this.props.getPosts( this.state.token );    
+    }
+
 
     onSubmit = text => {
 
@@ -150,8 +163,8 @@ const mapDispatchToProps = (dispatch) => {
         createTweet: (text => dispatch(createTweet(text))),
         createPost: (post) => dispatch( createPost(post) ) ,
         removePost: (post) => dispatch( removePost(post) ) ,
+        updatePost: (post) => dispatch( updatePost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
-
     }
 }
 

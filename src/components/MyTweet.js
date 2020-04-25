@@ -2,17 +2,9 @@ import React, { Component, useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Avatar,
-  Typography,
-  Button,
-  withStyles,
-} from '@material-ui/core';
+import {Card,CardHeader,CardMedia,CardContent,CardActions,Avatar,
+        Typography,Button,TextField,withStyles,} from '@material-ui/core';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -20,6 +12,15 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
+
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CommentIcon from '@material-ui/icons/Comment';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+
+
+
 
 import clsx from 'clsx';
 import { red } from '@material-ui/core/colors';
@@ -114,7 +115,8 @@ const MyTweet = (props) => {
     const LinkPreviews = urlMatches.map(link => <MicrolinkCard url={link} />);
 
     const [open, setOpen] = useState(false);
-    
+    const [openEdit, setOpenEdit] = useState(false);
+
     const [expanded, setExpanded ]  = useState(false);
     const [anchorEl, setAnchorEl ] = useState(null);
 
@@ -130,6 +132,15 @@ const MyTweet = (props) => {
         setOpen(false);
     };
 
+    const handleClickOpenEdit = () => {
+        setOpenEdit(true);
+
+    };
+    
+    const handleCloseEdit = () => {
+        setOpenEdit(false);
+        MenuhandleClose()
+    };
 
     const MenuhandleClick = (e) => { // 引数追加
         
@@ -149,8 +160,13 @@ const MyTweet = (props) => {
             token: data.token,
         }
 
+        let answer = window.confirm("Are you seriously sure you want to delete your message ?")
+
         setAnchorEl(null);
-        onRemovePost(credential);
+
+        if (answer) {
+            onRemovePost(credential);
+        }
 
     }
     
@@ -183,8 +199,6 @@ const MyTweet = (props) => {
             subheader={
                 <Link to={`/tweet/${id}`} className={classes.link}>
                 {moment(created).fromNow()}
-                loginid: {loginUserId}
-                creatduserid: {posterId}
                 </Link>
             }
             />
@@ -198,7 +212,6 @@ const MyTweet = (props) => {
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton
-                                   
                     aria-haspopup="true"
                     aria-owns={anchorEl ? "simple-menu" : null}
                     className={clsx(classes.expand, {
@@ -220,8 +233,18 @@ const MyTweet = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={MenuhandleClose}
                 >
-                    <MenuItem onClick={MenuhandleClose}>Edit</MenuItem>
-                    <MenuItem onClick={onRemovePostItem}>Delete</MenuItem>
+                    <MenuItem onClick={handleClickOpenEdit}>
+                        <ListItemIcon>
+                            <EditIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Edit</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={onRemovePostItem}>
+                        <ListItemIcon>
+                            <EditIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Delete</Typography>
+                    </MenuItem>
                 </Menu>
                         :
                 <Menu
@@ -231,10 +254,40 @@ const MyTweet = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={MenuhandleClose}
                 >
-                    <MenuItem onClick={MenuhandleClose}>comment</MenuItem>
+                <MenuItem>
+                    <ListItemIcon>
+                        <CommentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography variant="inherit">Comment</Typography>
+                </MenuItem>
+
                 </Menu>
             }
- 
+
+            <Dialog
+                open={openEdit}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={MenuhandleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle id="alert-dialog-slide-title">Edit message</DialogTitle>
+                <DialogContent>
+                    <TextField multiline fullWidth
+                        id="alert-dialog-slide-description" label="text" type="text"  fullWidth
+                        defaultValue={text}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseEdit} color="primary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>            
+
+
+
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -243,7 +296,7 @@ const MyTweet = (props) => {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle id="alert-dialog-slide-title">Title</DialogTitle>
+                <DialogTitle id="alert-dialog-slide-title">Post message</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         {text}
