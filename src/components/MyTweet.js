@@ -91,7 +91,7 @@ const styles = theme => ({
 
 const MyTweet = (props) => {
 
-    const {classes, tweet, data, onRemovePost} = props;
+    const {classes, tweet, data, onRemovePost, onUpdatePost} = props;
 
     const postedBy = tweet.postedBy;
     const text = tweet.body;
@@ -116,6 +116,7 @@ const MyTweet = (props) => {
 
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [inputText, setInputText] = useState("");
 
     const [expanded, setExpanded ]  = useState(false);
     const [anchorEl, setAnchorEl ] = useState(null);
@@ -152,6 +153,34 @@ const MyTweet = (props) => {
     const MenuhandleClose = () => {
         setAnchorEl(null);
     }; 
+
+    const handleChange = name => event => {
+        setInputText(event.target.value);
+        console.log("MyTweet handleChange", inputText);
+        //this.setState({ [name]: event.target.value });
+    };    
+
+
+    const onUpdatePostItem = () => {
+
+        const postData = new FormData();
+
+        postData.set("title", "title");
+        postData.set("body", inputText);
+    
+        console.log("MyTweet updatePost -> ", inputText)
+        const credential = {
+            postId: id,
+            body: inputText,
+            token: data.token,
+        }
+
+        setAnchorEl(null);
+        handleCloseEdit();
+
+        onUpdatePost(credential);
+
+    }
 
     const onRemovePostItem = () => {
 
@@ -241,7 +270,7 @@ const MyTweet = (props) => {
                     </MenuItem>
                     <MenuItem onClick={onRemovePostItem}>
                         <ListItemIcon>
-                            <EditIcon fontSize="small" />
+                            <DeleteIcon fontSize="small" />
                         </ListItemIcon>
                         <Typography variant="inherit">Delete</Typography>
                     </MenuItem>
@@ -264,34 +293,57 @@ const MyTweet = (props) => {
                 </Menu>
             }
 
-            <Dialog
+            {/*
+                Dialog for Editing Text Message content
+            */}
+            <Dialog aria-labelledby="form-dialog-title"
                 open={openEdit}
                 TransitionComponent={Transition}
                 keepMounted
+                fullWidth
+                maxWidth={"md"}
                 onClose={MenuhandleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle id="alert-dialog-slide-title">Edit message</DialogTitle>
+                <form>
                 <DialogContent>
-                    <TextField multiline fullWidth
-                        id="alert-dialog-slide-description" label="text" type="text"  fullWidth
-                        defaultValue={text}
-                    />
+                <DialogContentText>
+                    please edit contents and press update button. 
+                </DialogContentText>
+                
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="text"
+                    multiline
+                    type="text"
+                    fullWidth
+                    defaultValue={text || null}
+                    onChange={handleChange("text")}
+                />
                 </DialogContent>
+
                 <DialogActions>
                     <Button onClick={handleCloseEdit} color="primary">
                         Cancel
                     </Button>
+                    <Button onClick={onUpdatePostItem} color="primary">
+                        Update
+                    </Button>
                 </DialogActions>
+                </form>
             </Dialog>            
 
 
-
+            {/*
+                Dialog for View Text Message content
+            */}
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
+                fullWidth
+                maxWidth={"md"}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
@@ -301,6 +353,7 @@ const MyTweet = (props) => {
                     <DialogContentText id="alert-dialog-slide-description">
                         {text}
                     </DialogContentText>
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

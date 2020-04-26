@@ -4,7 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './MyTweet';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createTweet, createPost, getPosts, removePost, updatePost } from '../store/actions/tweetActions';
+import { createTweet, createPost, getPosts, removePost, updateTextPost } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
 import { Link, Redirect } from "react-router-dom";
@@ -70,9 +70,13 @@ class Home extends Component {
     }
 
     onUpdatePost = (credential) => {
-        const { removePost } = this.props;
+        const { body } = credential;
         console.log("Home updatePost (onSubmit):", credential);
-        updatePost(credential);
+
+        const {postData} = credential
+        console.log("* Home updatePost (onSubmit) postData:", body)
+
+        updateTextPost(credential);
 
         //this.setState({
         //    isDeleted: true,
@@ -97,6 +101,7 @@ class Home extends Component {
         
         const { classes, tweets, data , tweetsPost, tweetsError } = this.props;
         console.log("Home all tweets posted (consolidated after posting)", tweetsPost)
+        console.log("Home tweetError (render) : ", tweetsError)
 
         if (!data) {
             return <Redirect to={{pathname: "/signin" }} />
@@ -125,7 +130,10 @@ class Home extends Component {
                                         {tweetsPost.map(tweet => (    
                                             
                                             (<Grid item={true}  xs={12} md={3} lg={3} key={tweet._id} >
-                                                {tweet && ( <MyTweet tweet={tweet} data={data} onRemovePost={this.onRemovePost} key={tweet.id} /> ) }
+                                                {tweet && ( <MyTweet tweet={tweet} data={data} 
+                                                                onRemovePost={this.onRemovePost} 
+                                                                onUpdatePost={this.onUpdatePost}
+                                                                key={tweet.id} /> ) }
                                             </Grid>) 
                         
                                             
@@ -163,7 +171,7 @@ const mapDispatchToProps = (dispatch) => {
         createTweet: (text => dispatch(createTweet(text))),
         createPost: (post) => dispatch( createPost(post) ) ,
         removePost: (post) => dispatch( removePost(post) ) ,
-        updatePost: (post) => dispatch( updatePost(post) ) ,
+        updateTextPost: (post) => dispatch( updateTextPost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
     }
 }

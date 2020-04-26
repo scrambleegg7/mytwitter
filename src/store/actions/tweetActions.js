@@ -48,13 +48,13 @@ const createPostOptions = (token, body) => {
     
 };
 
-const updatePostOptions = (token, post) => {
+const updatePostOptions = (token, body) => {
     return ({
     method: 'PUT',
     headers: { 
         Accept: 'application/json',
         'Authorization' : `Bearer ${token}` },
-    body: post
+    body: body
     })
     
 };
@@ -94,13 +94,13 @@ export const createPost = (credentials) => {
     }
 }
 
-export const updatePost = (credentials) => {
+export const updateTextPost = (credentials) => {
 
     const postId = credentials.postId;
     const token = credentials.token;
-    const body = credentials.body
+    const body = credentials.body;
 
-    console.log("updatePost(tweetActions) body -> ", body)
+    //console.log("updatePost(tweetActions) body -> ", body.get("body"));
 
     return (dispatch, getState) => {
 
@@ -116,7 +116,6 @@ export const updatePost = (credentials) => {
         })
     }
 }
-
 
 export const getPosts = (token) => {
 
