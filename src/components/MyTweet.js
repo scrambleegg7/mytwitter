@@ -171,7 +171,7 @@ const MyTweet = (props) => {
         console.log("MyTweet updatePost -> ", inputText)
         const credential = {
             postId: id,
-            body: inputText,
+            body: postData,
             token: data.token,
         }
 

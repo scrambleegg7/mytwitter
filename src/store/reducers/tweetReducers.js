@@ -36,7 +36,15 @@ const tweetReducer = (state = InitState, action ) => {
 
             return {
                 //...state, 
-                postData: state.postData,
+                postData: state.postData.map( (post) => {
+                        if (post._id === action.data._id) {
+                            return  action.data  
+                        }
+                        else {
+                            return post;
+                        }
+                    }
+                ),
                 postError: null
             }
             

@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 const createPostHost = 'http://localhost:8080/post/new/';
 const removePostHost = 'http://localhost:8080/post/';
 const updatePostHost = 'http://localhost:8080/post/';
+const findUpdatePostHost = 'http://localhost:8080/post/update/';
 
 const getPostsHost = "http://localhost:8080/posts"
 
@@ -13,6 +14,9 @@ const handleResponse = (response ) => {
     return response.text()
     .then( (text) => {
         const data = text && JSON.parse(text);
+
+        console.log("handleResponse response text --> ",data)
+
         if (!response.ok) {
             if (response.status !== 200) {
                 console.log("handleResponse", response)
@@ -94,17 +98,17 @@ export const createPost = (credentials) => {
     }
 }
 
-export const updateTextPost = (credentials) => {
+export const updatePost = (credentials) => {
 
     const postId = credentials.postId;
     const token = credentials.token;
     const body = credentials.body;
 
-    //console.log("updatePost(tweetActions) body -> ", body.get("body"));
+    console.log("updatePost(tweetActions) body -> ", body);
 
     return (dispatch, getState) => {
 
-        fetch(updatePostHost + postId, updatePostOptions(token, body))
+        fetch(findUpdatePostHost + postId, updatePostOptions(token, body))
         .then(handleResponse)
         .then( (data) => {
             console.log("updatePost (tweetActions) ", data)
