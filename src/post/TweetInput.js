@@ -71,7 +71,7 @@ class TweetInput extends Component {
 
         this.setState({ loading: true });
 
-        const { classes, data } = this.props;
+        const { data } = this.props;
         const { value } = this.input.current;
         //this.postData.append("title", "title");
         //this.postData.append("body", this.state.body);

@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
-
-import red from '@material-ui/core/colors/red';
-
-import { Redirect } from 'react-router-dom';
+import {  withStyles, Grid,  Button } from '@material-ui/core';
 
 const styles = theme => ({
 
@@ -34,10 +30,6 @@ const styles = theme => ({
 
 class DeleteUser extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     deleteConfirmed = () => {
         let answer = window.confirm("Are you seriously sure you want to delete your account ?")
 
@@ -56,12 +48,6 @@ class DeleteUser extends Component {
 
     render () {
         
-        const danger = red[500]; // #F44336
-
-        const {userError} = this.props;
-        //if (userError === "remove user_successed") {
-        //    return <Redirect  to="/"   />
-        //}
 
         return (
             <Grid container justify="right" style={{ marginTop: '20px' }}>

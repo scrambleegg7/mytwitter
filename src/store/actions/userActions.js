@@ -55,7 +55,7 @@ const handleResponse = (response ) => {
             if (response.status !== 200) {
                 console.log("handleResponse", response)
             }
-            const error = (data && data.error || data.statusText );
+            const error = (data && (data.error || data.statusText) );
             console.log("error from handleResponse", error)
             return Promise.reject(error)
         }

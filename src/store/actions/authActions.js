@@ -1,5 +1,3 @@
-import moment from 'moment';
-import { v4 as uuid } from 'uuid';
 
 const signupHost = 'http://localhost:8080/signup';
 const signinHost = 'http://localhost:8080/signin';
@@ -30,7 +28,7 @@ const handleResponse = (response ) => {
             if (response.status !== 200) {
                 console.log("handleResponse", response)
             }
-            const error = (data && data.error || data.statusText );
+            const error = (data && ( data.error || data.statusText ));
             console.log("error from handleResponse", error)
             return Promise.reject(error)
         }
@@ -73,7 +71,6 @@ export const signUp = (credentials) => {
     const password = credentials.password;
     const firstname = credentials.firstname
     const lastname = credentials.lastname;
-    const name = lastname + " " + firstname;
     const backgroundColor = credentials.backgroundColor;
 
     const user = {

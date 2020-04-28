@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
-import { Face,  Https } from '@material-ui/icons';
+import { Paper, withStyles, Grid, TextField, Button, Container } from '@material-ui/core';
 import PaletteIcon from '@material-ui/icons/Palette';
 
 import Typography from "@material-ui/core/Typography";

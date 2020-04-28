@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
-import { Face, Fingerprint } from '@material-ui/icons';
+import { Paper, withStyles, Grid, TextField, Button,  Container } from '@material-ui/core';
+import { Face } from '@material-ui/icons';
 
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
 
@@ -48,13 +48,8 @@ class ForgetPassword extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         
-        const { email, password } = this.state;
-
         console.log("signin state:", this.state )
-        const user = {
-            email,
-            password
-        };        
+                
     }
 
     loginForm = (classes) => (

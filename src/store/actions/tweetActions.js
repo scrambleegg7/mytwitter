@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 const createPostHost = 'http://localhost:8080/post/new/';
 const removePostHost = 'http://localhost:8080/post/';
-const updatePostHost = 'http://localhost:8080/post/';
+//const updatePostHost = 'http://localhost:8080/post/';
 const findUpdatePostHost = 'http://localhost:8080/post/update/';
 
 const getPostsHost = "http://localhost:8080/posts"
@@ -21,7 +21,7 @@ const handleResponse = (response ) => {
             if (response.status !== 200) {
                 console.log("handleResponse", response)
             }
-            const error = (data && data.error || data.statusText );
+            const error = (data && (data.error || data.statusText) );
             console.log("error from handleResponse", error)
             return Promise.reject(error)
         }

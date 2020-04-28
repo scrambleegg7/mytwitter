@@ -1,20 +1,18 @@
+import React from 'react';
 
-import React, {useState} from 'react';
-
-import {
-    Card, CardHeader,CardMedia,CardContent,CardActions,
-    Avatar,Typography,Button,withStyles} from '@material-ui/core';
+import { Typography, withStyles} from '@material-ui/core';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CommentIcon from '@material-ui/icons/Comment';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+
+import EditDialog from './EditDialog';
+import ViewDialog from './ViewDialog';
 
 
 const styles = theme => ({
@@ -29,27 +27,23 @@ const styles = theme => ({
 
 const  TweetMenu =(props) => {
 
-    const {isValidUserId} = props;    
-    const [open, setOpen] = useState(false);
-
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const editDialog = () => {
-        setOpen(false);
-
-    }
-
-
+    const { isValidUserId,
+            open,
+            onRemovePostItem,
+            onUpdatePostItem,
+            anchorEl,
+            MenuhandleClose, 
+            handleClickOpenEdit,
+            Transition, 
+            handleClose,
+            text,
+            openEdit, 
+            handleCloseEdit,
+            handleChangeEditText
+                } = props;    
+    
     return (
         <div>
-
             {isValidUserId ?     
                 <Menu
                     id="simple-menu"
@@ -58,8 +52,18 @@ const  TweetMenu =(props) => {
                     open={Boolean(anchorEl)}
                     onClose={MenuhandleClose}
                 >
-                    <MenuItem onClick={MenuhandleClose}>Edit</MenuItem>
-                    <MenuItem onClick={onRemovePostItem}>Delete</MenuItem>
+                    <MenuItem onClick={handleClickOpenEdit}>
+                        <ListItemIcon>
+                            <EditIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Edit</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={onRemovePostItem}>
+                        <ListItemIcon>
+                            <DeleteIcon fontSize="small" />
+                        </ListItemIcon>
+                        <Typography variant="inherit">Delete</Typography>
+                    </MenuItem>
                 </Menu>
                         :
                 <Menu
@@ -69,9 +73,31 @@ const  TweetMenu =(props) => {
                     open={Boolean(anchorEl)}
                     onClose={MenuhandleClose}
                 >
-                    <MenuItem onClick={MenuhandleClose}>comment</MenuItem>
+                <MenuItem>
+                    <ListItemIcon>
+                        <CommentIcon fontSize="small" />
+                    </ListItemIcon>
+                    <Typography variant="inherit">Comment</Typography>
+                </MenuItem>
+
                 </Menu>
             }
+        
+            <EditDialog 
+                openEdit={openEdit} 
+                Transition={Transition} 
+                MenuhandleClose={MenuhandleClose} 
+                text={text} 
+                handleCloseEdit={handleCloseEdit} 
+                onUpdatePostItem={onUpdatePostItem}
+                handleChangeEditText={handleChangeEditText}
+             />
+            <ViewDialog
+                open={open} 
+                Transition={Transition} 
+                handleClose={handleClose} 
+                text={text} 
+            />
         </div>
     );
 }

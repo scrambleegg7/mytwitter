@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
 import TweetInput from './TweetInput';
-import MyTweet from './MyTweet';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import MyTweet from './TweetMain';
+import {  withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { createTweet, createPost, getPosts, removePost, updatePost } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 
 const styles = (theme) =>  ( {
@@ -76,7 +76,6 @@ class Home extends Component {
         const { body } = credential;
         console.log("Home updatePost (onSubmit):", credential);
 
-        const {postData} = credential
         console.log("* Home updatePost (onSubmit) postData:", body)
 
         updatePost(credential);
@@ -102,7 +101,7 @@ class Home extends Component {
 
     render () {
         
-        const { classes, tweets, data , tweetsPost, tweetsError } = this.props;
+        const { classes, data , tweetsPost, tweetsError } = this.props;
         console.log("Home all tweets posted (consolidated after posting)", tweetsPost)
         console.log("Home tweetError (render) : ", tweetsError)
 

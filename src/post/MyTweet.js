@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React, { useState} from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import {
@@ -9,7 +8,6 @@ import {
   CardContent,
   CardActions,
   Avatar,
-  Typography,
   Button,
   withStyles,
 } from '@material-ui/core';
@@ -22,11 +20,9 @@ import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 
 import clsx from 'clsx';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -34,18 +30,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Markdown from 'react-markdown';
 import colorFrom from '../utils/colors';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import MicrolinkCard from '@microlink/react';
 
 
 
 const imageUrlRe = /\b(https?:\/\/\S+(?:png|jpe?g|gif)\S*)\b/g;
 
-const insertTextAtIndices = (text, obj) => {
-    return text.replace(/./g, function(character, index) {
-      return obj[index] ? obj[index] + character : character;
-    });
-  };
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -95,12 +86,8 @@ const MyTweet = ({
     const text = body;
     const id = _id;
 
-    const posterId = postedBy ? postedBy._id : "";
     const posterFirstName = postedBy ? postedBy.firstname : "";
     const posterLastName = postedBy ? postedBy.lastname : "";
-    const posterEmail = postedBy ? postedBy.email : "";
-    const posterBackGroundColor = postedBy ? postedBy.backgroundColor : "";
-    const posterCreated = postedBy ? postedBy.created : "";
 
 
     //console.log(body)

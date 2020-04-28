@@ -42,7 +42,7 @@ class TweetInput extends React.Component {
             return;
         }
 
-        const { classes, data } = this.props;
+        const { data } = this.props;
         //console.log("TweetInput data(onSubmit) -> : ", data)
 
         this.postData.set("title", "title");

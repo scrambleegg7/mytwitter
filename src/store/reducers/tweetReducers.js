@@ -1,4 +1,4 @@
-import moment from 'moment';
+
 //import { saveStore, loadStore } from '../../utils/storage';
 
 //const loadstore = loadStore()
@@ -62,7 +62,7 @@ const tweetReducer = (state = InitState, action ) => {
 
             return {
                 //...state, 
-                postData: state.postData.filter(item => item._id != action.data._id),
+                postData: state.postData.filter(item => item._id !== action.data._id),
                 postError: null
             }
             
@@ -90,20 +90,6 @@ const tweetReducer = (state = InitState, action ) => {
                 postError: action.err
             }
         
-        {/*
-        case 'CREATE_TWEET':
-            console.log("create_tweet from tweetReducer ", action.payload  )
-            console.log("create_tweet old state from tweetReducer ", ...state  )
-            
-            saveStore( [...state, action.payload] )
-            return (
-                [...state, action.payload]
-            )
-            
-        case 'CREATE_TWEET_ERROR':
-            console.log("create_tweet_error from tweetReducer ", action.err  )
-            return state;
-        */}
         default:
             return state;   
     }

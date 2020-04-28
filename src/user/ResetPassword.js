@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, 
-            Checkbox, Container, Typography } from '@material-ui/core';
-import { Face, Fingerprint } from '@material-ui/icons';
+import { Paper, withStyles, Grid, TextField, Button,  
+             Container, Typography } from '@material-ui/core';
+import { Fingerprint } from '@material-ui/icons';
 
 //import { Link, Redirect } from "react-router-dom";
 import {Link} from "@material-ui/core";
@@ -141,8 +141,7 @@ class ResetPassword extends Component {
 
     render() {
         
-        const { classes,authError, data, redirectToReferer } = this.props;
-        const {loading} = this.state.loading;
+        const { classes,authError } = this.props;
 
         const isInValid = this.state.newpassword !== this.state.newpassword2;
         console.log("newpassword same as confirmed pasword ", this.state.isValidNewPassword)     

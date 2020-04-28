@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
+import { Paper, withStyles, Grid, TextField, Button, Container } from '@material-ui/core';
 import { Face,  Https } from '@material-ui/icons';
 import PaletteIcon from '@material-ui/icons/Palette';
 
@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 
 //import Link from '@material-ui/core/Link';
 
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
 

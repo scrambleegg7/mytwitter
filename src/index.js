@@ -9,12 +9,10 @@ import { Provider } from 'react-redux';
 
 import thunk from 'redux-thunk';
 
-import { saveStore, loadStore } from './utils/storage';
 // import firebase tools 
 //import { reduxFirestore,   getFirestore } from 'redux-firestore';
 import { createFirestoreInstance } from 'redux-firestore'
 import { ReactReduxFirebaseProvider,  getFirebase } from 'react-redux-firebase';
-import logger from 'redux-logger';
 
 import fbConfig from './config/fbConfig';
 

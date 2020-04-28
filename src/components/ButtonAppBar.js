@@ -1,13 +1,12 @@
-import React, {useState, Component} from 'react';
+import React, {Component} from 'react';
 import { Link, Redirect } from "react-router-dom";
 
 import clsx from 'clsx';
 
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 //import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
@@ -17,7 +16,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Home from '../components/Home';
-import TweetHome from '../containers/TweetHome';
 
 
 import Drawer from '@material-ui/core/Drawer';
@@ -26,12 +24,9 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
@@ -206,7 +201,7 @@ class ButtonAppBar extends Component {
     
     render () {
 
-        const {classes, data, redirectToProfile, user} = this.props;
+        const {classes, redirectToProfile, user} = this.props;
         const { open } = this.state;
 
 

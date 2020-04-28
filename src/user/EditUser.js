@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Container } from '@material-ui/core';
-import { Face,  Https } from '@material-ui/icons';
+import { Paper, withStyles, Grid, TextField, Button,  Container } from '@material-ui/core';
 import PaletteIcon from '@material-ui/icons/Palette';
 
 
@@ -10,7 +9,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import DeleteUser from './DeleteUser';
 
 const styles = theme => ({
 
@@ -69,13 +67,7 @@ class EditUser extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         
-        const { email, password } = this.state;
-
         console.log("signin state:", this.state )
-        const user = {
-            email,
-            password
-        };        
     }
 
     loginForm = (classes) => (

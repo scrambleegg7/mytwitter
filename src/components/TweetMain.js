@@ -1,37 +1,29 @@
-import React, {  useState } from 'react';
+import React, { useState} from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import {Card,CardHeader,CardMedia,CardContent,CardActions,Avatar,
-        Typography,Button,TextField,withStyles,} from '@material-ui/core';
+import {Card,
+        CardHeader,
+        CardMedia,
+        CardContent,
+        CardActions,Avatar,
+        withStyles,} from '@material-ui/core';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import CommentIcon from '@material-ui/icons/Comment';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-
-
-
-
-
 import clsx from 'clsx';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-
 
 import Markdown from 'react-markdown';
 import colorFrom from '../utils/colors';
 
 import { useTheme } from '@material-ui/core/styles';
 import MicrolinkCard from '@microlink/react';
+
+import TweetMenu from './TweetMenu';
+
+
+
 
 const imageUrlRe = /\b(https?:\/\/\S+(?:png|jpe?g|gif)\S*)\b/g;
 
@@ -103,7 +95,7 @@ const MyTweet = (props) => {
 
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
-    const [inputText, setInputText] = useState("");
+    const [inputEditText, setEditInputText] = useState("");
 
     const [expanded, setExpanded ]  = useState(false);
     const [anchorEl, setAnchorEl ] = useState(null);
@@ -134,28 +126,27 @@ const MyTweet = (props) => {
         
         setAnchorEl(e.currentTarget);
         setExpanded(!expanded);
-        
+        //console.log("MenuhandleClick:", anchorEl, expanded )
     };
 
     const MenuhandleClose = () => {
         setAnchorEl(null);
     }; 
 
-    const handleChange = name => event => {
-        setInputText(event.target.value);
-        console.log("MyTweet handleChange", inputText);
+    const handleChangeEditText = name => event => {
+        setEditInputText(event.target.value);
+        console.log("TweetMain handleChange", inputEditText);
         //this.setState({ [name]: event.target.value });
     };    
-
 
     const onUpdatePostItem = () => {
 
         const postData = new FormData();
 
         postData.set("title", "title");
-        postData.set("body", inputText);
+        postData.set("body", inputEditText);
     
-        console.log("MyTweet updatePost -> ", inputText)
+        console.log("MyTweet updatePost -> ", inputEditText)
         const credential = {
             postId: id,
             body: postData,
@@ -192,7 +183,7 @@ const MyTweet = (props) => {
             className={classes.card}
             elevation={8}
             >    
-           
+
             {image && (
                 <CardMedia
                 className={classes.cardMedia}
@@ -241,114 +232,20 @@ const MyTweet = (props) => {
                 </IconButton>
             </CardActions>
 
-            {isValidUserId ?     
-                <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={MenuhandleClose}
-                >
-                    <MenuItem onClick={handleClickOpenEdit}>
-                        <ListItemIcon>
-                            <EditIcon fontSize="small" />
-                        </ListItemIcon>
-                        <Typography variant="inherit">Edit</Typography>
-                    </MenuItem>
-                    <MenuItem onClick={onRemovePostItem}>
-                        <ListItemIcon>
-                            <DeleteIcon fontSize="small" />
-                        </ListItemIcon>
-                        <Typography variant="inherit">Delete</Typography>
-                    </MenuItem>
-                </Menu>
-                        :
-                <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={MenuhandleClose}
-                >
-                <MenuItem>
-                    <ListItemIcon>
-                        <CommentIcon fontSize="small" />
-                    </ListItemIcon>
-                    <Typography variant="inherit">Comment</Typography>
-                </MenuItem>
-
-                </Menu>
-            }
-
-            {/*
-                Dialog for Editing Text Message content
-            */}
-            <Dialog aria-labelledby="form-dialog-title"
-                open={openEdit}
-                TransitionComponent={Transition}
-                keepMounted
-                fullWidth
-                maxWidth={"md"}
-                onClose={MenuhandleClose}
-            >
-                <DialogTitle id="alert-dialog-slide-title">Edit message</DialogTitle>
-                <form>
-                <DialogContent>
-                <DialogContentText>
-                    please edit contents and press update button. 
-                </DialogContentText>
-                
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="text"
-                    multiline
-                    type="text"
-                    fullWidth
-                    defaultValue={text || null}
-                    onChange={handleChange("text")}
-                />
-                </DialogContent>
-
-                <DialogActions>
-                    <Button onClick={handleCloseEdit} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={onUpdatePostItem} color="primary">
-                        Update
-                    </Button>
-                </DialogActions>
-                </form>
-            </Dialog>            
-
-
-            {/*
-                Dialog for View Text Message content
-            */}
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                fullWidth
-                maxWidth={"md"}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle id="alert-dialog-slide-title">Post message</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        {text}
-                    </DialogContentText>
-
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Confirm
-                    </Button>
-                </DialogActions>
-            </Dialog>            
-
+            <TweetMenu isValidUserId = {isValidUserId}
+                        open={open} 
+                        onRemovePostItem={onRemovePostItem} 
+                        onUpdatePostItem={onUpdatePostItem}
+                        anchorEl = {anchorEl}
+                        MenuhandleClose={MenuhandleClose} 
+                        handleClickOpenEdit={handleClickOpenEdit}
+                        Transition={Transition} 
+                        handleClose={handleClose}
+                        text={text}
+                        openEdit={openEdit} 
+                        handleCloseEdit={handleCloseEdit} 
+                        handleChangeEditText={handleChangeEditText}
+                    />
 
         </Card>
 
