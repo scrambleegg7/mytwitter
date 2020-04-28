@@ -70,12 +70,14 @@ const styles = theme => ({
 
 const MyTweet = (props) => {
 
-    const {classes, tweet, data, onRemovePost, onUpdatePost} = props;
+    const {classes, tweet, data, onRemovePost, onUpdatePost, onUpdateComment} = props;
 
     const postedBy = tweet.postedBy;
     const text = tweet.body;
     const created = tweet.created;
     const id = tweet._id;
+    // comment 
+    const comment = tweet.comments;
 
     const loginUserId = data.user._id;
 
@@ -95,7 +97,10 @@ const MyTweet = (props) => {
 
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [openComment, setOpenComment] = useState(false);
+    
     const [inputEditText, setEditInputText] = useState("");
+    const [inputCommentText, setCommentInputText] = useState("");
 
     const [expanded, setExpanded ]  = useState(false);
     const [anchorEl, setAnchorEl ] = useState(null);
@@ -114,11 +119,19 @@ const MyTweet = (props) => {
 
     const handleClickOpenEdit = () => {
         setOpenEdit(true);
-
     };
     
     const handleCloseEdit = () => {
         setOpenEdit(false);
+        MenuhandleClose()
+    };
+
+    const handleClickOpenComment = () => {
+        setOpenComment(true);
+    };
+    
+    const handleCloseComment = () => {
+        setOpenComment(false);
         MenuhandleClose()
     };
 
@@ -135,9 +148,35 @@ const MyTweet = (props) => {
 
     const handleChangeEditText = name => event => {
         setEditInputText(event.target.value);
-        console.log("TweetMain handleChange", inputEditText);
-        //this.setState({ [name]: event.target.value });
+        console.log("TweetMain handleChange text", inputEditText);
     };    
+
+    const handleChangeCommentText = name => event => {
+        setCommentInputText(event.target.value);
+        console.log("TweetMain handleChange (comment)", inputCommentText);
+    };    
+
+    const onUpdateCommentItem = () => {
+
+        //const postData = new FormData();
+
+        //postData.set("title", "title");
+        //postData.set("body", inputEditText);
+    
+        console.log("MyTweet updatePost -> ", inputEditText)
+        const credential = {
+            userId: loginUserId,
+            postId: id,
+            comment: { text: inputCommentText},
+            token: data.token,
+        }
+
+        setAnchorEl(null);
+        handleCloseComment();
+
+        onUpdateComment(credential);
+
+    }
 
     const onUpdatePostItem = () => {
 
@@ -234,16 +273,22 @@ const MyTweet = (props) => {
 
             <TweetMenu isValidUserId = {isValidUserId}
                         open={open} 
+                        openComment={openComment}
                         onRemovePostItem={onRemovePostItem} 
                         onUpdatePostItem={onUpdatePostItem}
+                        onUpdateCommentItem={onUpdateCommentItem}
                         anchorEl = {anchorEl}
                         MenuhandleClose={MenuhandleClose} 
                         handleClickOpenEdit={handleClickOpenEdit}
+                        handleClickOpenComment={handleClickOpenComment}
                         Transition={Transition} 
                         handleClose={handleClose}
                         text={text}
+                        comment={comment}
                         openEdit={openEdit} 
                         handleCloseEdit={handleCloseEdit} 
+                        handleCloseComment={handleCloseComment}
+                        handleChangeCommentText={handleChangeCommentText}
                         handleChangeEditText={handleChangeEditText}
                     />
 

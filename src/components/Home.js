@@ -4,7 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './TweetMain';
 import {  withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createTweet, createPost, getPosts, removePost, updatePost } from '../store/actions/tweetActions';
+import { createPost, getPosts, removePost, updatePost, commentUpdate } from '../store/actions/tweetActions';
 import { Grid } from '@material-ui/core';
 
 import { Redirect } from "react-router-dom";
@@ -87,6 +87,15 @@ class Home extends Component {
         //this.props.getPosts( this.state.token );    
     }
 
+    onUpdateComment = (credential) => {
+
+        const { commentUpdate } = this.props;
+
+        //const { body } = credential;
+        console.log("Home updateComment (onSubmit):", credential);
+        commentUpdate(credential);
+    }
+
 
     onSubmit = text => {
 
@@ -135,6 +144,7 @@ class Home extends Component {
                                                 {tweet && ( <MyTweet tweet={tweet} data={data} 
                                                                 onRemovePost={this.onRemovePost} 
                                                                 onUpdatePost={this.onUpdatePost}
+                                                                onUpdateComment={this.onUpdateComment}
                                                                 key={tweet.id} /> ) }
                                             </Grid>) 
                         
@@ -158,7 +168,7 @@ class Home extends Component {
 
 const mapStateToProps = state => (
     {
-        tweets: state.tweets.data,
+        //tweets: state.tweets.data,
         tweetsPost: state.tweets.postData,
         tweetsError: state.tweets.postError,
         
@@ -170,11 +180,12 @@ const mapStateToProps = state => (
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        createTweet: (text => dispatch(createTweet(text))),
         createPost: (post) => dispatch( createPost(post) ) ,
         removePost: (post) => dispatch( removePost(post) ) ,
         updatePost: (post) => dispatch( updatePost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
+
+        commentUpdate: (post) => dispatch( commentUpdate(post) ),
     }
 }
 

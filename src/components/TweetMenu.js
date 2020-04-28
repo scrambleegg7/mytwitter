@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import EditDialog from './EditDialog';
 import ViewDialog from './ViewDialog';
+import CommentDialog from './CommentDialog';
 
 
 const styles = theme => ({
@@ -29,17 +30,23 @@ const  TweetMenu =(props) => {
 
     const { isValidUserId,
             open,
+            openComment,
             onRemovePostItem,
             onUpdatePostItem,
+            onUpdateCommentItem,
             anchorEl,
             MenuhandleClose, 
             handleClickOpenEdit,
+            handleClickOpenComment,
             Transition, 
             handleClose,
-            text,
+            text, comment,
             openEdit, 
             handleCloseEdit,
-            handleChangeEditText
+            handleCloseComment,
+            handleChangeEditText,
+            handleChangeCommentText,
+
                 } = props;    
     
     return (
@@ -73,7 +80,7 @@ const  TweetMenu =(props) => {
                     open={Boolean(anchorEl)}
                     onClose={MenuhandleClose}
                 >
-                <MenuItem>
+                <MenuItem onClick={handleClickOpenComment}>
                     <ListItemIcon>
                         <CommentIcon fontSize="small" />
                     </ListItemIcon>
@@ -82,7 +89,19 @@ const  TweetMenu =(props) => {
 
                 </Menu>
             }
-        
+
+            <CommentDialog 
+                openComment={openComment} 
+                Transition={Transition} 
+                MenuhandleClose={MenuhandleClose} 
+                comment={comment} 
+                handleCloseComment={handleCloseComment} 
+                onUpdateCommentItem={onUpdateCommentItem}
+                handleChangeCommentText={handleChangeCommentText}
+             />
+
+
+
             <EditDialog 
                 openEdit={openEdit} 
                 Transition={Transition} 

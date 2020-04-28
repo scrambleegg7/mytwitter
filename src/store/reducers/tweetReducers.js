@@ -89,6 +89,25 @@ const tweetReducer = (state = InitState, action ) => {
                 data: null,
                 postError: action.err
             }
+
+        case 'COMMENT_SUCCESS':
+            console.log("comment new data from tweetReducer ", action.data  )
+            //console.log("remove_post old state from tweetReducer ", ...state.postData  )
+
+            return {
+                //...state, 
+                postData: state.postData,
+                postError: null
+            }
+            
+        case 'COMMENT_ERROR':
+            console.log("comment_error from tweetReducer ", action.err  )
+            return {
+                ...state, 
+                single_data: null,
+                postError: action.err
+            }
+    
         
         default:
             return state;   

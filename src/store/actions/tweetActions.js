@@ -6,6 +6,9 @@ const removePostHost = 'http://localhost:8080/post/';
 //const updatePostHost = 'http://localhost:8080/post/';
 const findUpdatePostHost = 'http://localhost:8080/post/update/';
 
+const commentHost = 'http://localhost:8080/post/comment/';
+const uncommentHost = 'http://localhost:8080/post/uncomment/';
+
 const getPostsHost = "http://localhost:8080/posts"
 
 
@@ -71,6 +74,17 @@ const getPostsOptions = (token) => {
         Accept: 'application/json',
         'Content-Type': 'application/json' ,
         'Authorization' : `Bearer ${token}` },
+    })
+};
+
+const commentOptions = (userId, token, postId, comment) => {
+    return ({
+    method: 'PUT',
+    headers: { 
+        Accept: 'application/json',
+
+        'Authorization' : `Bearer ${token}` },
+    body: JSON.stringify({ userId, postId, comment })
     })
 };
 
@@ -161,32 +175,30 @@ export const removePost = (credentials) => {
     }
 }
 
+export const commentUpdate = (credentials) => {
 
+    const userId = credentials.userId;
+    const postId = credentials.postId;
+    const token = credentials.token;
+    const comment = credentials.comment;
 
-export const createTweet = (payload) => {
+    console.log("comment(tweetActions) comment -> ", comment);
 
-    console.log("createTweet tweetActions : ", payload)
+    return (dispatch, getState) => {
 
-    return ( dispatch ) => {
-        // make async 
-        // const firestore = getFirestore();
-        dispatch(
-            {
-                type: 'CREATE_TWEET', 
-                payload: {
-                    id: uuid(), // unique id of tweet
-                    createdAt: moment(), // datetime object of tweet's creation
-                    userId: null, // user's id
-                    text: '', // content of the tweet
-                    replyToId: null, // if the tweet is a reply, id to the original tweet
-                    ...payload,
-                    },                    
-            })
-        
-
+        fetch(commentHost, commentOptions(userId, token, postId, comment) )
+        .then(handleResponse)
+        .then( (data) => {
+            console.log("comment (tweetActions) ", data)
+            dispatch({ type: "COMMENT_SUCCESS",   data  })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'COMMENT_ERROR', err });
+        })
     }
 
-};
 
+}
 
 
