@@ -167,7 +167,7 @@ const MyTweet = (props) => {
         const credential = {
             userId: loginUserId,
             postId: id,
-            comment: { text: inputCommentText},
+            comment: inputCommentText,
             token: data.token,
         }
 

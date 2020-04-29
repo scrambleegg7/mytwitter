@@ -6,8 +6,8 @@ const removePostHost = 'http://localhost:8080/post/';
 //const updatePostHost = 'http://localhost:8080/post/';
 const findUpdatePostHost = 'http://localhost:8080/post/update/';
 
-const commentHost = 'http://localhost:8080/post/comment/';
-const uncommentHost = 'http://localhost:8080/post/uncomment/';
+const commentHost = "http://localhost:8080/post/comment/update";
+
 
 const getPostsHost = "http://localhost:8080/posts"
 
@@ -16,8 +16,11 @@ const handleResponse = (response ) => {
 
     return response.text()
     .then( (text) => {
+
+
         const data = text && JSON.parse(text);
 
+        console.log(text)
         console.log("handleResponse response text --> ",data)
 
         if (!response.ok) {
@@ -77,14 +80,14 @@ const getPostsOptions = (token) => {
     })
 };
 
-const commentOptions = (userId, token, postId, comment) => {
+const commentOptions = (token, userId, postId, comment) => {
     return ({
     method: 'PUT',
     headers: { 
         Accept: 'application/json',
-
+        'Content-Type': 'application/json' ,
         'Authorization' : `Bearer ${token}` },
-    body: JSON.stringify({ userId, postId, comment })
+    body: JSON.stringify({userId, postId, comment})
     })
 };
 
@@ -182,11 +185,16 @@ export const commentUpdate = (credentials) => {
     const token = credentials.token;
     const comment = credentials.comment;
 
-    console.log("comment(tweetActions) comment -> ", comment);
+
+    const data = {
+        userId, postId, comment
+    }
+
+    console.log("comment(tweetActions) comment data to be submit. -> ", data);
 
     return (dispatch, getState) => {
 
-        fetch(commentHost, commentOptions(userId, token, postId, comment) )
+        fetch(commentHost, commentOptions(token, userId, postId, {text: comment }) )
         .then(handleResponse)
         .then( (data) => {
             console.log("comment (tweetActions) ", data)

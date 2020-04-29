@@ -104,7 +104,7 @@ const tweetReducer = (state = InitState, action ) => {
             console.log("comment_error from tweetReducer ", action.err  )
             return {
                 ...state, 
-                single_data: null,
+                postData: null,
                 postError: action.err
             }
     

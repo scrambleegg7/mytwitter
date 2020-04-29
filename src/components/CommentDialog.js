@@ -45,11 +45,12 @@ const CommentDialog = (props) => {
             />
             </DialogContent>
 
-            { comment.map(comm =>  
+            { comment ? comment.map(comm =>  
                 (<Typography variant="inherit">   
                     {comm.text}
-                </Typography>)
-            )}
+                </Typography>) 
+                
+            ) : "" }
 
             <DialogActions>
                 <Button onClick={handleCloseComment} color="primary">

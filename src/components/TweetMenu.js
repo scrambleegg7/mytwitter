@@ -94,7 +94,7 @@ const  TweetMenu =(props) => {
                 openComment={openComment} 
                 Transition={Transition} 
                 MenuhandleClose={MenuhandleClose} 
-                comment={comment} 
+                comment={comment ? comment : ""} 
                 handleCloseComment={handleCloseComment} 
                 onUpdateCommentItem={onUpdateCommentItem}
                 handleChangeCommentText={handleChangeCommentText}

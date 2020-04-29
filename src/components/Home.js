@@ -184,7 +184,6 @@ const mapDispatchToProps = (dispatch) => {
         removePost: (post) => dispatch( removePost(post) ) ,
         updatePost: (post) => dispatch( updatePost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
-
         commentUpdate: (post) => dispatch( commentUpdate(post) ),
     }
 }
