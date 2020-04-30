@@ -46,7 +46,7 @@ const CommentDialog = (props) => {
             </DialogContent>
 
             { comment ? comment.map(comm =>  
-                (<Typography variant="inherit">   
+                (<Typography variant="inherit" key={comm._id}>   
                     {comm.text}
                 </Typography>) 
                 
