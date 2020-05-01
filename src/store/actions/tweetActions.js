@@ -20,7 +20,6 @@ const handleResponse = (response ) => {
 
         const data = text && JSON.parse(text);
 
-        console.log(text)
         console.log("handleResponse response text --> ",data)
 
         if (!response.ok) {

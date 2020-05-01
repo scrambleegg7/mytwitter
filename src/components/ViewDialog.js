@@ -7,9 +7,23 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import CommentDisplay from './CommentDisplay';
+
+const styles = theme => ({
+    paper: {
+        padding: theme.spacing.unit * 2,
+    },
+    tweetButton: {
+        marginTop: theme.spacing.unit,
+    },
+});
+
+
+
+
 const ViewDiaglog = (props) => {
 
-    const {open, Transition, handleClose, text} = props;
+    const {classes, open, Transition, handleClose, text, comment} = props;
 
     return (
         <Dialog
@@ -28,7 +42,10 @@ const ViewDiaglog = (props) => {
                     {text}
                 </DialogContentText>
 
+                <CommentDisplay comments={comment} />
+
             </DialogContent>
+
             <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     Confirm
@@ -40,4 +57,4 @@ const ViewDiaglog = (props) => {
 }
 
 
-export default ViewDiaglog;
+export default withStyles(styles)(ViewDiaglog);

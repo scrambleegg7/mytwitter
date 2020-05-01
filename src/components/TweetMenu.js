@@ -116,6 +116,7 @@ const  TweetMenu =(props) => {
                 Transition={Transition} 
                 handleClose={handleClose} 
                 text={text} 
+                comment={comment}
             />
         </div>
     );
