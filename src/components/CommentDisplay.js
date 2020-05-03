@@ -1,63 +1,89 @@
-import React from 'react';
-import {Button, withStyles,} from '@material-ui/core';
+import React, {useState} from 'react';
+import {Button, Avatar,  Card, withStyles,} from '@material-ui/core';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import colorFrom from '../utils/colors';
+
+
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
+import moment from 'moment';
+
+import Paper from '@material-ui/core/Paper';
+
 
 const styles = theme => ({
 
     root: {
         width: '100%',
-        maxWidth: 360,
+        maxWidth: 500,
         backgroundColor: theme.palette.background.paper,
-      },
-      chip: {
+    },
+    chip: {
         margin: theme.spacing(0.5),
-      },
-      section1: {
+    },
+    section1: {
         margin: theme.spacing(3, 2),
-      },
-      section2: {
+    },
+    section2: {
         margin: theme.spacing(2),
-      },
-      section3: {
+    },
+    section3: {
         margin: theme.spacing(3, 1, 1),
-      },    
+    },
+    paper: {
+        padding: theme.spacing(2),
+        //maxWidth: 500,
+    },          
 });
 
 const CommentDisplay = (props) => {
 
     const {classes, comments} = props;
 
+    const [commentsExist, setCommentExists] = useState(false);
+
     return (
         <div className={classes.root}>
 
+        <Grid container spacing={2} alignItems="stretch" direction="column">
+        <Paper elevation={3} >
             {comments ? comments.map(
                 comment => ( 
-               <div className={classes.section1}>
-                        <Grid container alignItems="center">
-                        <Grid item xs>
-                            <Typography gutterBottom variant="h6">
-                            {comment.postedBy.email}
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography gutterBottom variant="h6">
-                            {comment.postedBy.lastname}
-                            </Typography>
-                        </Grid>
-                        </Grid>
-                        <Typography color="textSecondary" variant="body2">
-                            {comment.text}
-                        </Typography>
-                </div>
-               ))
+
+                    
+                    <div key={comment._id}>
+                    <Divider />
+
+                    <ListItem alignItems="flex-start" key={comment._id}>
+                    <ListItemAvatar>
+                        <Avatar 
+                            style={{backgroundColor: colorFrom(comment.postedBy.backgroundColor),}}
+                        >
+                        { comment.postedBy.lastname.charAt(0) + comment.postedBy.firstname.charAt(0)}
+                        </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={comment.postedBy.lastname}   secondary={comment.text}>
+                    {moment(comment.created).fromNow()}
+
+                        
+                    </ListItemText>
+                    </ListItem>
+                    <Divider variant="inset"  />
+                    
+                    </div>
+                ))
                 :
                 ""
             }
 
-
+        </Paper>
+        </Grid>            
         </div>
     )
 

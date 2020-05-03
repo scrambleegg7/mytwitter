@@ -96,9 +96,17 @@ const tweetReducer = (state = InitState, action ) => {
 
             return {
                 //...state, 
-                postData: state.postData,
-                postError: null
-            }
+                postData: state.postData.map( (post) => {
+                    if (post._id === action.data._id) {
+                        return  action.data  
+                    }
+                    else {
+                        return post;
+                    }
+                }
+            ),
+            postError: null
+        }
             
         case 'COMMENT_ERROR':
             console.log("comment_error from tweetReducer ", action.err  )

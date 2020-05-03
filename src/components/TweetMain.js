@@ -5,7 +5,10 @@ import {Card,
         CardHeader,
         CardMedia,
         CardContent,
-        CardActions,Avatar,
+        CardActions,
+        Avatar,
+        Divider,
+        Typography,
         withStyles,} from '@material-ui/core';
 
 import Slide from '@material-ui/core/Slide';
@@ -34,23 +37,28 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   
 const styles = theme => ({
     card: {
+        //flex: 1,
         marginBottom: theme.spacing.unit * 2,
-        display: 'block',
+        //display: 'block',
         transitionDuration: '0.5s',
-        
+        //maxHeight: '30vw',
     },
     cardMedia: {
         height: 0,
         paddingTop: '56.25%', // 16:9
     },
     content: {
-        wordWrap: 'break-word',
-        height: '15vw',
+        //wordWrap: 'break-word',
+        height: '20vw',
     },
     link: {
         textDecoration: 'none',
         color: theme.palette.primary.dark,
     },
+    
+    divider: {
+        margin: `${theme.spacing.unit * 3}px`
+    },    
     expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
@@ -67,6 +75,16 @@ const styles = theme => ({
 //
 //MyTweet represents single card containing each post message, which holds created date/user id.
 // 
+const MyTruncate= (props) => {
+
+    const {str} = props;
+    console.log("truncate", str.length);
+    const strlength = str.length;
+
+    const strtext = strlength > 120 ? str.substring(0,140) : str;
+
+    return strtext
+}
 
 const MyTweet = (props) => {
 
@@ -85,7 +103,7 @@ const MyTweet = (props) => {
     const posterFirstName = postedBy ? postedBy.firstname : "";
     const posterLastName = postedBy ? postedBy.lastname : "";
     const posterEmail = postedBy ? postedBy.email : "";
-    //const posterBackGroundColor = postedBy ? postedBy.backgroundColor : "";
+    const posterBackGroundColor = postedBy ? postedBy.backgroundColor : "";
     //const posterCreated = postedBy ? postedBy.created : "";
     
     const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
@@ -235,7 +253,7 @@ const MyTweet = (props) => {
             avatar={
                 <Avatar
                 style={{
-                    backgroundColor: colorFrom(id),
+                    backgroundColor: colorFrom(posterBackGroundColor),
                 }}
                 >
                 {avatarName}
@@ -243,19 +261,17 @@ const MyTweet = (props) => {
             }
             title={posterEmail}
             subheader={
-                <Link to={`/tweet/${id}`} className={classes.link}>
-                {moment(created).fromNow()}
-                </Link>
+                moment(created).fromNow()
+                
             }
             />
 
             <CardContent className={classes.content}  onClick={handleClickOpen}   >
-                <Markdown
-                source={text}
-                />
-
-                {LinkPreviews}
+                <Typography paragraph noWrap={false}>
+                <MyTruncate str={text} />
+                </Typography>
             </CardContent>
+
             <CardActions disableSpacing>
                 <IconButton
                     aria-haspopup="true"
@@ -291,6 +307,7 @@ const MyTweet = (props) => {
                         handleChangeCommentText={handleChangeCommentText}
                         handleChangeEditText={handleChangeEditText}
                     />
+
 
         </Card>
 
