@@ -7,6 +7,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import Grid from '@material-ui/core/Grid';
+
+import PostTextDisplay from './PostTextDisplay';
+
+import CommentTextDialog from './CommentTextDialog';
+
 import CommentDisplay from './CommentDisplay';
 
 const styles = theme => ({
@@ -23,7 +29,16 @@ const styles = theme => ({
 
 const ViewDiaglog = (props) => {
 
-    const {classes, open, Transition, handleClose, text, comment} = props;
+    const {classes, isValidUserId,  
+            open, 
+            Transition, 
+            handleClose, 
+            tweet, 
+            text, 
+            comment, 
+            handleChangeCommentText,
+            onUpdateCommentItem
+        } = props;
 
     return (
         <Dialog
@@ -37,20 +52,42 @@ const ViewDiaglog = (props) => {
             aria-describedby="alert-dialog-slide-description"
         >
             <DialogTitle id="alert-dialog-slide-title">Post message</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    {text}
-                </DialogContentText>
+            
 
+            
+            <DialogContent>
+            
+
+                <PostTextDisplay tweet={tweet} />
+                
                 <CommentDisplay comments={comment} />
 
+                {!isValidUserId ? 
+                    (<CommentTextDialog 
+                        handleChangeCommentText={handleChangeCommentText}
+                        
+                        />)
+                    :
+                    ""    
+                }
             </DialogContent>
-
+            
+            
             <DialogActions>
+
+                {!isValidUserId ? (
+                    <Button onClick={onUpdateCommentItem} color="primary">
+                        Update Comment
+                    </Button>
+                    )
+                    :
+                    ""
+                }
                 <Button onClick={handleClose} color="primary">
-                    Confirm
+                    Close
                 </Button>
             </DialogActions>
+            
         </Dialog>                
     )
 

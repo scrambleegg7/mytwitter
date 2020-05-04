@@ -12,7 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 
 import EditDialog from './EditDialog';
-import ViewDialog from './ViewDialog';
+
 import CommentDialog from './CommentDialog';
 
 
@@ -111,13 +111,6 @@ const  TweetMenu =(props) => {
                 onUpdatePostItem={onUpdatePostItem}
                 handleChangeEditText={handleChangeEditText}
              />
-            <ViewDialog
-                open={open} 
-                Transition={Transition} 
-                handleClose={handleClose} 
-                text={text} 
-                comment={comment}
-            />
         </div>
     );
 }

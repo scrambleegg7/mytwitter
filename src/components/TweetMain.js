@@ -24,7 +24,7 @@ import { useTheme } from '@material-ui/core/styles';
 import MicrolinkCard from '@microlink/react';
 
 import TweetMenu from './TweetMenu';
-
+import ViewDialog from './ViewDialog';
 
 
 
@@ -78,10 +78,10 @@ const styles = theme => ({
 const MyTruncate= (props) => {
 
     const {str} = props;
-    console.log("truncate", str.length);
+    //console.log("truncate", str.length);
     const strlength = str.length;
 
-    const strtext = strlength > 120 ? str.substring(0,140) : str;
+    const strtext = strlength > 140 ? str.substring(0,140) + "....(more)" : str;
 
     return strtext
 }
@@ -194,6 +194,7 @@ const MyTweet = (props) => {
 
         onUpdateComment(credential);
 
+        setEditInputText("");
     }
 
     const onUpdatePostItem = () => {
@@ -307,6 +308,19 @@ const MyTweet = (props) => {
                         handleChangeCommentText={handleChangeCommentText}
                         handleChangeEditText={handleChangeEditText}
                     />
+
+            <ViewDialog
+                isValidUserId = {isValidUserId}
+                open={open} 
+                tweet={tweet}
+                Transition={Transition} 
+                handleClose={handleClose} 
+                text={text} 
+                comment={comment}
+                handleChangeCommentText={handleChangeCommentText}
+                onUpdateCommentItem={onUpdateCommentItem}
+
+            />
 
 
         </Card>
