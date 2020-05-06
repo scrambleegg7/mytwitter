@@ -8,7 +8,7 @@ import SignUp from './containers/SignUp';
 import Profile from './containers/Profile';
 
 
-import ForgetPassword from './user/ForgetPassword';
+import ForgetPassword from './containers/ForgetPassword';
 import ResetPassword from './containers/ResetPassword';
 import EditUser from './user/EditUser';
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import SignIn from '../user/SignIn';
 
-import { signIn } from '../store/actions/authActions';
+import { signIn, getFirebaseToken } from '../store/actions/authActions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,14 +10,17 @@ const mapStateToProps = (state, ownProps) => {
         data : state.auth.data,
         redirectToReferer: state.auth.redirectToReferer,
         loading: state.auth.loading,
+        firebaseAuth: state.firebase.auth,
+        firebaseToken: state.auth.firebaseToken, 
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signIn: (newUser) => dispatch( signIn(newUser) )
+        signIn: (newUser) => dispatch( signIn(newUser) ),
+        getFirebaseToken: () => dispatch( getFirebaseToken() ),
+        //signOut: () => dispatch( signOut() )
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

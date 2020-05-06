@@ -77,7 +77,38 @@ export const signUp = (credentials) => {
         firstname, lastname, email, password, backgroundColor
     }
 
-    return (dispatch, getState) => {
+
+
+    return (dispatch , getState, getFirebase, getFirestore  ) => {
+    //return (dispatch, getState) => {
+
+        const firebase = getFirebase();
+        // react-redux-firebase v3.0.0 workaround 
+        // https://github.com/prescottprue/react-redux-firebase/issues/785
+        const firestore = getFirebase().firestore();
+
+        firebase.auth().createUserWithEmailAndPassword(
+            email,
+            password
+        )
+        .then( () => {
+
+            const user = firebase.auth().currentUser;
+            firebase.auth().languageCode = 'ja';
+            
+            user.sendEmailVerification().then(function() {
+                
+                console.log("email verification after sending confirmation message.",user.emailVerified)
+                alert("確認のメッセージをあなたのEmailボックスに送りました。確認お願いいたします。")
+
+              }).catch(function(err) {
+                //alert("Error happened", err)
+                dispatch( { type: 'SIGNUP_ERROR', err });
+              });
+            
+        })
+
+
 
         fetch(signupHost, requestOptions(user))
         .then(handleResponse)
@@ -92,30 +123,81 @@ export const signUp = (credentials) => {
     }
 }
 
+export const getFirebaseToken = () => {
+
+    return (dispatch , getState,  getFirebase  ) => {
+
+        const firebase = getFirebase();
+
+        firebase.auth().currentUser.getIdToken(
+            /**/true 
+        )
+        .then( (IdToken) => {
+            console.log("get Firebase Token", IdToken)
+            dispatch({ type: "FIREBASETOKEN_SUCCESS"  , 
+                        firebaseToken: IdToken, 
+            })
+        })
+        .catch( (err) => {
+            console.log("getting firebase token error", err)            
+            dispatch( { type: 'FIREBASETOKEN_ERROR', err });
+        })
+    
+    }
+}
+
 export const signIn = (credentials) => {
 
     const email = credentials.email;
     const password = credentials.password;
 
-    const user = {
-        email, password
-    }
 
 
-    return (dispatch, getState) => {
+    //return (dispatch, getState) => {
+    return (dispatch , getState,  getFirebase  ) => {
 
-        console.log("signin authActions:", user)
+        const firebase = getFirebase();
 
-        fetch(signinHost, requestOptions(user))
-        .then(handleResponse)
-        .then( (data) => {
-            //console.log(" signin (authActions) ", data)
-            dispatch({ type: "SIGNIN_SUCCESS"  , data   }   )
+        firebase.auth().signInWithEmailAndPassword(
+            email,
+            password
+        )
+        .then( () => {
+
+            //console.log("signin firebase. Auth data --> : ",firebase.auth()  )
+
+            firebase.auth().currentUser.getIdToken(
+                /**/true 
+            )
+            .then( (IdToken) => {
+                console.log("get Firebase Token", IdToken)
+
+                const user = {
+                    email, password, IdToken
+                }
+            
+                fetch(signinHost, requestOptions(user))
+                .then(handleResponse)
+                .then( (data) => {
+                    //console.log(" signin (authActions) ", data)
+                    dispatch({ type: "SIGNIN_SUCCESS"  , 
+                                data: data,
+                                firebaseToken: IdToken, 
+                               })
+                })
+                .catch( (err) => {
+                    console.log("signin error", err)            
+                    dispatch( { type: 'SIGNIN_ERROR', err });
+                })
+            })
         })
         .catch( (err) => {
-            console.log("signin error", err)            
-            dispatch( { type: 'SIGNIN_ERROR', err });
+            const message = err.message
+            console.log("sign in error from firebase.", err.message)
+            dispatch( { type: 'SIGNIN_ERROR' , err: message } );
         })
+    
+
     }
 
 }
@@ -123,7 +205,17 @@ export const signIn = (credentials) => {
 
 export const signOut = () => {
 
-    return (dispatch, getState) => {
+    //return (dispatch, getState) => {
+    return (dispatch , getState,  getFirebase  ) => {
+
+
+        const firebase = getFirebase();
+
+        firebase.auth().signOut()
+        .then( () => {
+            console.log("SignOut success with firebase function. ")
+            }
+        )
 
         fetch(signoutHost, requestGetOptions())
         .then(handleResponse)
@@ -159,6 +251,28 @@ export const getUser = (credentials) => {
         })
     }
 }
+
+
+export const forgetPassword = (newUser) => {
+
+    return (dispatch , getState,  getFirebase  ) => {
+
+        const firebase = getFirebase();
+
+        firebase.auth().sendPasswordResetEmail(newUser.email)
+        .then( () => {
+            console.log("forgetPassword (authActions) successed.")
+            dispatch( { type: 'FOREGETPASSWORD_SUCCESS' } )
+        })
+        .catch( (err) => {
+            dispatch( { type: 'FOREGETPASSWORD_ERROR', err: err.message });
+        })
+
+        
+    }
+}
+
+
 
 export const resetPassword = (credentials) => {
 

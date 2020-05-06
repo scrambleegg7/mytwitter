@@ -48,8 +48,9 @@ class ForgetPassword extends Component {
         e.preventDefault();
         this.setState({ loading: true });
         
-        console.log("signin state:", this.state )
+        console.log("ForgetPasswords state --> ", this.state )
                 
+        this.props.forgetPassword(this.state);
     }
 
     loginForm = (classes) => (

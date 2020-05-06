@@ -35,6 +35,7 @@ const authReducer = (state = InitState, action ) => {
                 ...state,
                 authError: "signin_successed",
                 data: action.data,
+                firebaseToken: action.firebaseToken,
                 redirectToReferer: true
             }
 
@@ -56,6 +57,7 @@ const authReducer = (state = InitState, action ) => {
                 ...state,
                 redirectToReferer: false,
                 data : null,
+                firebaseToken: null,
                 authError: null
             }
 
@@ -76,6 +78,21 @@ const authReducer = (state = InitState, action ) => {
             }
 
         case 'RESETPASS_ERROR':
+            //console.log("signup error from authreducer.")
+            return {
+                ...state,
+                authError: action.err
+            }
+
+            
+        case 'FOREGETPASSWORD_SUCCESS':
+            //console.log("successfully signup from authreducer.")
+            return {
+                ...state,
+                authError: "reset password_successed"
+            }
+
+        case 'FOREGETPASSWORD_ERROR':
             //console.log("signup error from authreducer.")
             return {
                 ...state,

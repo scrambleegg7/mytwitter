@@ -44,7 +44,13 @@ class SignIn extends Component {
             error: "",
             loading: false,
             redirectToReferer: false,
+            token: null,
         };
+
+
+        //this.setState({
+        //    token: this.props.getFirebaseToken()  
+        //})
 
     }
 
@@ -68,6 +74,8 @@ class SignIn extends Component {
         };        
 
         this.props.signIn(user);
+
+        //this.setState( {token: this.props.getFirebaseToken() } )
     }
 
     authentication = (token) => {
@@ -110,7 +118,7 @@ class SignIn extends Component {
                     } label="Remember me" />
                 </Grid>
                 <Grid item>
-                    <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary"  component={Link} to={"/forgetpass"} >Forgot password ?</Button>
+                    <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary"  component={Link} to={"/forgetpass"} >Forget password ?</Button>
                 </Grid>
             </Grid>
             <Grid container justify="center" style={{ marginTop: '10px' }}>
@@ -141,21 +149,18 @@ class SignIn extends Component {
 
     )
 
-
-
     render() {
         
-        const { classes,authError, data, redirectToReferer } = this.props;
+        const { classes,authError, data, redirectToReferer, firebaseAuth, firebaseToken } = this.props;
         const {loading} = this.state.loading;
 
-        console.log("SignIn autherror", authError)
-        console.log("sign in responsed data", data)
-
+        console.log("SignIn (Component) firebaseAuthorization", firebaseAuth)
+        console.log("firebase Token ",  firebaseToken)
         if (data) {
-            console.log("logined user id ", data.user.email)
+            console.log("logined user id ", data.user.email)        
         }
 
-        if (redirectToReferer || data) {
+        if (firebaseAuth.emailVerified && redirectToReferer && firebaseToken) {
             return <Redirect  to="/"   />
         }
 

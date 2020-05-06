@@ -28,7 +28,7 @@ class Home extends Component {
 
     constructor(props) {
         super();
-        console.log("Home constructor", props);
+        console.log("Home constructor props", props);
 
         const data = props.data;
 
@@ -40,8 +40,12 @@ class Home extends Component {
             email:data ? data.user.email : "" , 
         }
 
+        const firebaseToken = props.firebaseToken;
+        console.log("Home : firebaseToken --> ", firebaseToken)
+
         if (props.data) {
             props.getPosts(    props.data.token );
+            //props.getPosts( firebaseToken );
         }
 
     }
@@ -171,7 +175,8 @@ const mapStateToProps = state => (
         //tweets: state.tweets.data,
         tweetsPost: state.tweets.postData,
         tweetsError: state.tweets.postError,
-        
+
+        firebaseToken: state.auth.firebaseToken,         
         data : state.auth.data,
 
     }
