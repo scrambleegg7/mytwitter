@@ -139,10 +139,17 @@ class Profile extends Component {
                                 <MenuItem value={user.backgroundColor}>
                                     <em>None</em>
                                 </MenuItem>
-                                <MenuItem value={10}>Blue</MenuItem>
-                                <MenuItem value={20}>Pink</MenuItem>
-                                <MenuItem value={30}>Yellow</MenuItem>
-                                <MenuItem value={40}>Grey</MenuItem>
+                                <MenuItem value={0}>赤</MenuItem>
+                                <MenuItem value={1}>ピンク</MenuItem>
+                                <MenuItem value={2}>紫</MenuItem>
+                                <MenuItem value={3}>インディゴ</MenuItem>
+                                <MenuItem value={4}>青</MenuItem>
+                                <MenuItem value={5}>ティール</MenuItem>
+                                <MenuItem value={6}>緑</MenuItem>
+                                <MenuItem value={7}>ライトグリーン</MenuItem>
+                                <MenuItem value={8}>アンバー</MenuItem>
+                                <MenuItem value={9}>オレンジ</MenuItem>
+                                <MenuItem value={10}>デイ−プオレンジ</MenuItem>
                             </Select>
                         <FormHelperText>Some important helper text</FormHelperText>
                     </FormControl>            

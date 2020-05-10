@@ -154,14 +154,18 @@ class SignIn extends Component {
         const { classes,authError, data, redirectToReferer, firebaseAuth, firebaseToken } = this.props;
         const {loading} = this.state.loading;
 
-        console.log("SignIn (Component) firebaseAuthorization", firebaseAuth)
-        console.log("firebase Token ",  firebaseToken)
+        //console.log("SignIn (Component) firebaseAuthorization", firebaseAuth)
+        //console.log("firebase Token ",  firebaseToken)
+        
         if (data) {
             console.log("logined user id ", data.user.email)        
         }
 
         if (firebaseAuth.emailVerified && redirectToReferer && firebaseToken) {
             return <Redirect  to="/"   />
+        }
+        if (!firebaseAuth.emailVerified) {
+            
         }
 
         return (

@@ -67,7 +67,7 @@ const tweetReducer = (state = InitState, action ) => {
             }
             
         case 'REMOVEPOST_ERROR':
-            console.log("create_tweet_error from tweetReducer ", action.err  )
+            console.log("remove_tweet_error from tweetReducer ", action.err  )
             return {
                 ...state, 
                 single_data: null,

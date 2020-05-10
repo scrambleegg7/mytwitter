@@ -18,21 +18,6 @@ const styles = (theme) =>  ( {
         height: 200,
         //width: 100,
       },
-
-    paper_input: {
-        height: 200,
-        margin: theme.spacing.unit *0.2,
-        //width: 100,
-    },
-
-      paper_post: {
-        //height: 200,
-        width: "100%",
-        //padding: theme.spacing.unit,
-        margin: theme.spacing.unit *0.2,        
-      },
-
-      
       control: {
         padding: theme.spacing(2),
       },
@@ -176,46 +161,56 @@ class Home extends Component {
 
             return (
                 <React.Fragment>
-                    <Grid container>
-
-
-                        <Grid item xs={6} md={10}>
-
-                            <Paper className={classes.paper_input}>         
+                    <Grid container className={classes.root}>
+                        <Grid container={true} direction="column">
+                            <Grid item={true}  xs={10} md={10} lg={10}>
                                 <TweetInput onSubmit={this.onSubmit} />
-                            </Paper>
-                            <Paper className={classes.paper_post}>                        
-                                <Grid container direction="row">
-                                    {this.filterGeneralUser().map(tweet => (
-                                    <Grid item={true} xs={12} md={3} lg={3} key={tweet._id}>
-                                        { tweet && ( <MyTweet tweet={tweet} data={data} 
-                                            onRemovePost={this.onRemovePost} 
-                                            onUpdatePost={this.onUpdatePost}
-                                            onUpdateComment={this.onUpdateComment}
-                                            key={tweet.id} /> ) }
+                                
+                                <Grid container direction="column" justify="center">
+
+                                    <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        {generaluserposts.map(tweet =>     
+                                            (<Grid item={true}  xs={12} md={3} lg={3} key={tweet._id} >
+                                                { tweet && ( <MyTweet tweet={tweet} data={data} 
+                                                                onRemovePost={this.onRemovePost} 
+                                                                onUpdatePost={this.onUpdatePost}
+                                                                onUpdateComment={this.onUpdateComment}
+                                                                key={tweet.id} /> ) }
+                                            </Grid>) 
+                        
+                                            
+                                        )}
                                     </Grid>
-                                    ))}
                                 </Grid>
-                            </Paper>
-                        </Grid>
+                            </Grid>
+
+                            <Grid item={true}  xs={2} md={2} lg={2}>
+                                <Paper className={classes.paper} />
+
+                                <Grid container direction="column" justify="center">
+
+                                    <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+                                        {adminuserposts.map(tweet =>     
+                                            (<Grid item={true}  xs={12} md={12} lg={12} key={tweet._id} >
+                                                { tweet && ( <MyTweet tweet={tweet} data={data} 
+                                                                onRemovePost={this.onRemovePost} 
+                                                                onUpdatePost={this.onUpdatePost}
+                                                                onUpdateComment={this.onUpdateComment}
+                                                                key={tweet.id} /> ) }
+                                            </Grid>) 
                         
-                        
-                        <Grid item xs={6} md={2}>
-                            <Paper className={classes.paper_input}>
-                            
-                            </Paper>
-                            <Paper className={classes.paper_post}>                        
-                            {this.filterAdminlUser().map(tweet => (
-                                    <Grid item={true} xs={12} md={12} lg={12} key={tweet._id}>
-                                        { tweet && ( <MyTweet tweet={tweet} data={data} 
-                                            onRemovePost={this.onRemovePost} 
-                                            onUpdatePost={this.onUpdatePost}
-                                            onUpdateComment={this.onUpdateComment}
-                                            key={tweet.id} /> ) }
+                                            
+                                        )}
                                     </Grid>
-                                    ))}
-                            
-                            </Paper>
+                                </Grid>
+                            </Grid>
+
+
+
+
+
+
+
                         </Grid>
                     </Grid>
                 </React.Fragment>

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 2,
+        height: 200,
     },
     tweetButton: {
         marginTop: theme.spacing.unit,
@@ -67,13 +68,13 @@ class TweetInput extends React.Component {
         //console.log("TweetInput data -> : ", data)
 
         return (
-            <Paper className={classes.paper}>
+
             <form onSubmit={this.onSubmit} autoComplete="off">
                 <TextField
                 required
                 fullWidth
                 multiline
-                rows={2}
+                rows={4}
                 placeholder="What's happening?"
                 inputRef={this.input}
                 />
@@ -90,7 +91,6 @@ class TweetInput extends React.Component {
                 </Grid>
                 </Grid>
             </form>
-            </Paper>
         );
     }
 }

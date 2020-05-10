@@ -69,13 +69,15 @@ const updatePostOptions = (token, body) => {
 };
 
 
-const getPostsOptions = (token) => {
+const getPostsOptions = (token, userId) => {
+
     return ({
     method: 'GET',
     headers: { 
         Accept: 'application/json',
         'Content-Type': 'application/json' ,
         'Authorization' : `Bearer ${token}` },
+    //body: JSON.stringify({ userId })
     })
 };
 
@@ -137,11 +139,14 @@ export const updatePost = (credentials) => {
     }
 }
 
-export const getPosts = (token) => {
+export const getPosts = (credentials) => {
+
+    const userId = credentials.userId;
+    const token = credentials.token;
 
     return (dispatch, getState) => {
 
-        fetch(getPostsHost, getPostsOptions(token))
+        fetch(getPostsHost, getPostsOptions(token, userId))
         .then(handleResponse)
         .then( (data) => {
             console.log("getPosts (tweetActions) ", data.posts)

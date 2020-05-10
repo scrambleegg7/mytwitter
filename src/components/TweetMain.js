@@ -107,6 +107,8 @@ const MyTweet = (props) => {
     //const posterCreated = postedBy ? postedBy.created : "";
     
     const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
+    const fullName = posterLastName + " " +  posterFirstName;
+    
     //console.log(avatarName)
 
     const image = text.match(imageUrlRe);
@@ -260,7 +262,7 @@ const MyTweet = (props) => {
                 {avatarName}
                 </Avatar>
             }
-            title={posterEmail}
+            title={fullName}
             subheader={
                 moment(created).fromNow()
                 

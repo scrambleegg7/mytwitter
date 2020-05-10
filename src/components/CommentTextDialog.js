@@ -40,7 +40,7 @@ const CommentTextDialog = (props) => {
 
                 <Grid item className={classes.root}>
                 <Typography variant="h5">
-                    enter your comments....
+                    コメントをどうぞ....
                 </Typography>
                 </Grid>
 

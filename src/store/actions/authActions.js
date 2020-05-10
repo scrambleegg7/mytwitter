@@ -79,42 +79,15 @@ export const signUp = (credentials) => {
 
 
 
-    return (dispatch , getState, getFirebase, getFirestore  ) => {
-    //return (dispatch, getState) => {
-
-        const firebase = getFirebase();
-        // react-redux-firebase v3.0.0 workaround 
-        // https://github.com/prescottprue/react-redux-firebase/issues/785
-        const firestore = getFirebase().firestore();
-
-        firebase.auth().createUserWithEmailAndPassword(
-            email,
-            password
-        )
-        .then( () => {
-
-            const user = firebase.auth().currentUser;
-            firebase.auth().languageCode = 'ja';
-            
-            user.sendEmailVerification().then(function() {
-                
-                console.log("email verification after sending confirmation message.",user.emailVerified)
-                alert("確認のメッセージをあなたのEmailボックスに送りました。確認お願いいたします。")
-
-              }).catch(function(err) {
-                //alert("Error happened", err)
-                dispatch( { type: 'SIGNUP_ERROR', err });
-              });
-            
-        })
-
-
+    return (dispatch , getState,  getFirebase  ) => {
 
         fetch(signupHost, requestOptions(user))
         .then(handleResponse)
         .then( (data) => {
             //console.log("message (authActions) ", data)
             dispatch({ type: "SIGNUP_SUCCESS" })
+            alert("確認のメッセージをあなたのEmailボックスに送りました。確認お願いいたします。")
+
         })
         .catch( (err) => {
             //console.log("signup error", err)            
@@ -165,15 +138,20 @@ export const signIn = (credentials) => {
         .then( () => {
 
             //console.log("signin firebase. Auth data --> : ",firebase.auth()  )
+            const  firebase_logined_user = firebase.auth().currentUser;
+            console.log("signIn firebase current user (authActions)",firebase_logined_user.uid)
 
             firebase.auth().currentUser.getIdToken(
                 /**/true 
             )
-            .then( (IdToken) => {
-                console.log("get Firebase Token", IdToken)
+            .then( (idToken) => {
+                console.log("get Firebase Token", idToken)
 
                 const user = {
-                    email, password, IdToken
+                    email, 
+                    password, 
+                    idToken,
+                    uid: firebase_logined_user.uid, 
                 }
             
                 fetch(signinHost, requestOptions(user))
@@ -181,13 +159,13 @@ export const signIn = (credentials) => {
                 .then( (data) => {
                     //console.log(" signin (authActions) ", data)
                     dispatch({ type: "SIGNIN_SUCCESS"  , 
-                                data: data,
-                                firebaseToken: IdToken, 
-                               })
+                                data: data,   // data.token come from firebase_auth of mongo backend process.
+                                firebaseToken: idToken, 
+                    })
                 })
                 .catch( (err) => {
                     console.log("signin error", err)            
-                    dispatch( { type: 'SIGNIN_ERROR', err });
+                    dispatch( { type: 'SIGNIN_ERROR', err: err.message });
                 })
             })
         })
@@ -282,20 +260,42 @@ export const resetPassword = (credentials) => {
         newPassword: credentials.newpassword
     }
 
-    return (dispatch, getState) => {
 
-        console.log("signin authActions:", user)
+    return (dispatch , getState,  getFirebase  ) => {
+    //return (dispatch, getState) => {
 
-        fetch(resetPasswordHost, requestPutOptions(user))
-        .then(handleResponse)
-        .then( (data) => {
-            //console.log(" signin (authActions) ", data)
-            dispatch({ type: "RESETPASS_SUCCESS"  , data   }   )
+        const firebase = getFirebase();
+        const firebase_user = firebase.auth().currentUser;
+
+        console.log("** resetPassword authActions:", firebase_user)
+        //var newPassword = getASecureRandomPassword();
+        firebase_user.updatePassword(user.newPassword)
+        .then( () => {
+
+
+            fetch(resetPasswordHost, requestPutOptions(user))
+            .then(handleResponse)
+            .then( (data) => {
+                //console.log(" signin (authActions) ", data)
+                // Update successful.
+                dispatch({ type: "RESETPASS_SUCCESS"  , data   }   )
+            })
+            .catch( (err) => {
+                console.log("resetPassword error", err)            
+                dispatch( { type: 'RESETPASS_ERROR', err });
+            })
+
         })
-        .catch( (err) => {
-            console.log("signin error", err)            
+        .catch((err) =>  {
+            // An error happened.
+            console.log("resetPassword error", err)            
             dispatch( { type: 'RESETPASS_ERROR', err });
-        })
+
+        });
+          
+        
+
+
     }
 
 }
