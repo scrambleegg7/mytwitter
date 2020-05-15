@@ -126,7 +126,13 @@ class Home extends Component {
 
         const {tweetsPost} = this.props;
 
-        console.log(tweetsPost)
+        //console.log(tweetsPost)
+        tweetsPost.sort((a, b) => {
+            let dateA = new Date(a.created),
+              dateB = new Date(b.created);
+            return dateA - dateB;
+          })
+          .reverse();
 
         var rebels = tweetsPost.filter( (tweet) => {
             return tweet.postedBy.email !== "rmhmn777@gmail.com";
@@ -139,7 +145,14 @@ class Home extends Component {
 
         const {tweetsPost} = this.props;
 
-        console.log(tweetsPost)
+        //console.log(tweetsPost)
+        tweetsPost.sort((a, b) => {
+            let dateA = new Date(a.created),
+              dateB = new Date(b.created);
+            return dateA - dateB;
+          })
+          .reverse();
+          
 
         var rebels = tweetsPost.filter( (tweet) => {
             return tweet.postedBy.email === "rmhmn777@gmail.com";
