@@ -1,15 +1,15 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-const createPostHost = 'http://localhost:5000/post/new/';
-const removePostHost = 'http://localhost:5000/post/';
+const createPostHost = '/post/new/';
+const removePostHost = '/post/';
 //const updatePostHost = 'http://localhost:5000/post/';
-const findUpdatePostHost = 'http://localhost:5000/post/update/';
+const findUpdatePostHost = '/post/update/';
 
-const commentHost = "http://localhost:5000/post/comment/update";
+const commentHost = "/post/comment/update";
 
 
-const getPostsHost = "http://localhost:5000/posts"
+const getPostsHost = "/posts"
 
 
 const handleResponse = (response ) => {

@@ -1,9 +1,9 @@
 
-const signupHost = 'http://localhost:5000/signup';
-const signinHost = 'http://localhost:5000/signin';
-const signoutHost = 'http://localhost:5000/signout';
-const readuserHost = 'http://localhost:5000/user/';
-const resetPasswordHost = 'http://localhost:5000/reset-password/';
+const signupHost = '/signup';
+const signinHost = '/signin';
+const signoutHost = '/signout';
+const readuserHost = '/user/';
+const resetPasswordHost = '/reset-password/';
 
 
 const requestUserOptions = (token) => {

@@ -4,7 +4,7 @@
 //import { v4 as uuid } from 'uuid';
 import { removeJWTStore } from '../../utils/storage';
 
-const readuserHost = 'http://localhost:5000/user/';
+const readuserHost = '/user/';
 
 
 const requestUserOptions = (token) => {
