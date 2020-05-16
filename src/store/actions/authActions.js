@@ -1,9 +1,9 @@
 
-const signupHost = '/signup';
-const signinHost = '/signin';
-const signoutHost = '/signout';
-const readuserHost = '/user/';
-const resetPasswordHost = '/reset-password/';
+const signupHost = `${process.env.REACT_APP_API_URL}/signup`;
+const signinHost = `${process.env.REACT_APP_API_URL}/signin`;
+const signoutHost = `${process.env.REACT_APP_API_URL}/signout`;
+const readuserHost = `${process.env.REACT_APP_API_URL}/user/`;
+const resetPasswordHost = `${process.env.REACT_APP_API_URL}/reset-password/`;
 
 
 const requestUserOptions = (token) => {

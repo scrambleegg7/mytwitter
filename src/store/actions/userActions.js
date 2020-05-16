@@ -4,7 +4,7 @@
 //import { v4 as uuid } from 'uuid';
 import { removeJWTStore } from '../../utils/storage';
 
-const readuserHost = '/user/';
+const readuserHost = `${process.env.REACT_APP_API_URL}/user/`;
 
 
 const requestUserOptions = (token) => {

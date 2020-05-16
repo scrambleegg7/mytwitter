@@ -1,15 +1,15 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 
-const createPostHost = '/post/new/';
-const removePostHost = '/post/';
+const createPostHost = `${process.env.REACT_APP_API_URL}/post/new/`;
+const removePostHost = `${process.env.REACT_APP_API_URL}/post/`;
 //const updatePostHost = 'http://localhost:5000/post/';
-const findUpdatePostHost = '/post/update/';
+const findUpdatePostHost = `${process.env.REACT_APP_API_URL}/post/update/`;
 
-const commentHost = "/post/comment/update";
+const commentHost = `${process.env.REACT_APP_API_URL}/post/comment/update`;
 
 
-const getPostsHost = "/posts"
+const getPostsHost = `${process.env.REACT_APP_API_URL}/posts`;
 
 
 const handleResponse = (response ) => {
