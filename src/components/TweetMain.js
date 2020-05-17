@@ -88,7 +88,7 @@ const MyTruncate= (props) => {
 
 const MyTweet = (props) => {
 
-    const {classes, tweet, data, onRemovePost, onUpdatePost, onUpdateComment} = props;
+    const {classes, tweet, data, onRemovePost, onUpdatePost, onUpdateComment, onDeleteComment} = props;
 
     const postedBy = tweet.postedBy;
     const text = tweet.body;
@@ -109,6 +109,14 @@ const MyTweet = (props) => {
     const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
     const fullName = posterLastName + " " +  posterFirstName;
     
+    const commentNo = comment.length > 0 ? ` comments : ${comment.length}` : ""
+
+
+    const cardHeader = (created) => {
+        const momenttime = moment(created).fromNow();
+        return momenttime + "  " +  commentNo;
+    }
+
     //console.log(avatarName)
 
     const image = text.match(imageUrlRe);
@@ -183,21 +191,55 @@ const MyTweet = (props) => {
         //postData.set("title", "title");
         //postData.set("body", inputEditText);
     
-        console.log("MyTweet updatePost -> ", inputEditText)
+        console.log("MyTweet update Comment -> ", inputCommentText)
+
+        if (inputCommentText.length > 2) {
+
+            const credential = {
+                userId: loginUserId,
+                postId: id,
+                comment: inputCommentText,
+                token: data.token,
+            }
+
+            setAnchorEl(null);
+            handleCloseComment();
+
+            onUpdateComment(credential);
+
+            setEditInputText("");
+        }
+        else {
+            alert("もうちょっと文字書かんとあかんで。。。")
+            console.log("MyTweet Comment length ----> ", inputCommentText.length)
+
+        }
+    }
+
+    const onDeleteCommentItem = (comment) => {
+
+
+        console.log("*** ComponentDisplay target comment to be deleted (from redux)--> ", comment )
+    
         const credential = {
-            userId: loginUserId,
             postId: id,
-            comment: inputCommentText,
+            comment: comment,
             token: data.token,
         }
 
-        setAnchorEl(null);
-        handleCloseComment();
+        let answer = window.confirm("はあ?　ほんまに消すで。ええんか？")
 
-        onUpdateComment(credential);
+        //setAnchorEl(null);
 
-        setEditInputText("");
+        if (answer) {
+            onDeleteComment(credential);
+        }
+
+
+
     }
+
+
 
     const onUpdatePostItem = () => {
 
@@ -227,7 +269,7 @@ const MyTweet = (props) => {
             token: data.token,
         }
 
-        let answer = window.confirm("Are you seriously sure you want to delete your message ?")
+        let answer = window.confirm("はあ?　ほんまに消すで。ええんか？")
 
         setAnchorEl(null);
 
@@ -264,14 +306,13 @@ const MyTweet = (props) => {
             }
             title={fullName}
             subheader={
-                moment(created).fromNow()
-                
+                cardHeader(created)
             }
             />
-
+            
             <CardContent className={classes.content}  onClick={handleClickOpen}   >
                 <Typography paragraph noWrap={false}>
-                <MyTruncate str={text} />
+                    <MyTruncate str={text} />
                 </Typography>
             </CardContent>
 
@@ -321,6 +362,7 @@ const MyTweet = (props) => {
                 comment={comment}
                 handleChangeCommentText={handleChangeCommentText}
                 onUpdateCommentItem={onUpdateCommentItem}
+                onDeleteCommentItem={onDeleteCommentItem}
 
             />
 

@@ -7,13 +7,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import UpdateIcon from '@material-ui/icons/Update';
+import CloseIcon from '@material-ui/icons/Close';
+
 import Grid from '@material-ui/core/Grid';
 
 import PostTextDisplay from './PostTextDisplay';
 
 import CommentTextDialog from './CommentTextDialog';
 
-import CommentDisplay from './CommentDisplay';
+import CommentDisplay from '../containers/CommentDisplay';
 
 const styles = theme => ({
     paper: {
@@ -37,7 +40,8 @@ const ViewDiaglog = (props) => {
             text, 
             comment, 
             handleChangeCommentText,
-            onUpdateCommentItem
+            onUpdateCommentItem, 
+            onDeleteCommentItem
         } = props;
 
     return (
@@ -60,7 +64,7 @@ const ViewDiaglog = (props) => {
 
                 <PostTextDisplay tweet={tweet} />
                 
-                <CommentDisplay comments={comment} />
+                <CommentDisplay comments={comment} onDeleteCommentItem={onDeleteCommentItem} tweet={tweet}  />
 
                 {!isValidUserId ? 
                     (<CommentTextDialog 
@@ -76,16 +80,15 @@ const ViewDiaglog = (props) => {
             <DialogActions>
 
                 {!isValidUserId ? (
-                    <Button onClick={onUpdateCommentItem} color="primary">
-                        Update Comment
-                    </Button>
+
+                        <UpdateIcon onClick={onUpdateCommentItem} color="action" /> 
+                    
                     )
                     :
                     ""
                 }
-                <Button onClick={handleClose} color="primary">
-                    Close
-                </Button>
+                
+                <CloseIcon onClick={handleClose} color="primary" />
             </DialogActions>
             
         </Dialog>                

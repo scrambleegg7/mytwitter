@@ -7,7 +7,7 @@ const removePostHost = `${process.env.REACT_APP_API_URL}/post/`;
 const findUpdatePostHost = `${process.env.REACT_APP_API_URL}/post/update/`;
 
 const commentHost = `${process.env.REACT_APP_API_URL}/post/comment/update`;
-
+const commentDeleteHost = `${process.env.REACT_APP_API_URL}/post/comment/uncomment`;
 
 const getPostsHost = `${process.env.REACT_APP_API_URL}/posts`;
 
@@ -89,6 +89,17 @@ const commentOptions = (token, userId, postId, comment) => {
         'Content-Type': 'application/json' ,
         'Authorization' : `Bearer ${token}` },
     body: JSON.stringify({userId, postId, comment})
+    })
+};
+
+const commentDeleteOptions = (token, postId, comment) => {
+    return ({
+    method: 'PUT',
+    headers: { 
+        Accept: 'application/json',
+        'Content-Type': 'application/json' ,
+        'Authorization' : `Bearer ${token}` },
+    body: JSON.stringify({ postId, comment })
     })
 };
 
@@ -213,4 +224,33 @@ export const commentUpdate = (credentials) => {
 
 }
 
+export const commentDelete = (credentials) => {
 
+    //const userId = credentials.userId;
+    const postId = credentials.postId;
+    const token = credentials.token;
+    const comment = credentials.comment;
+
+
+    const data = {
+        postId, comment
+    }
+
+    console.log("comment(tweetActions) comment data to be deleted. -> ", data);
+
+    return (dispatch, getState) => {
+
+        fetch(commentDeleteHost, commentDeleteOptions(token, postId, comment) )
+        .then(handleResponse)
+        .then( (data) => {
+            console.log("Post data after deleting comment (tweetActions) ", data)
+            dispatch({ type: "COMMENT_DELETE_SUCCESS",   data  })
+        })
+        .catch( (err) => {
+            //console.log("signup error", err)            
+            dispatch( { type: 'COMMENT_DELETE_ERROR', err });
+        })
+    }
+
+
+}

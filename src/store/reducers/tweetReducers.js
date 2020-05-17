@@ -115,6 +115,32 @@ const tweetReducer = (state = InitState, action ) => {
                 postData: null,
                 postError: action.err
             }
+
+        case 'COMMENT_DELETE_SUCCESS':
+            console.log("remove_comment from tweetReducer ", action.data  )
+            console.log("remove_comment old state from tweetReducer ", ...state.postData  )
+
+            return {
+                //...state, 
+                postData: state.postData.map( (post) => {
+                    if (post._id === action.data._id) {
+                        return  action.data  
+                    }
+                    else {
+                        return post;
+                    }
+                }
+            ),
+                postError: null
+            }
+            
+        case 'COMMENT_DELETE_ERROR':
+            console.log("remove_post from tweetReducer ", action.err  )
+            return {
+                ...state, 
+                single_data: null,
+                postError: action.err
+            }
     
         
         default:

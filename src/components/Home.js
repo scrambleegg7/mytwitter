@@ -4,7 +4,7 @@ import TweetInput from './TweetInput';
 import MyTweet from './TweetMain';
 import {  withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { createPost, getPosts, removePost, updatePost, commentUpdate } from '../store/actions/tweetActions';
+import { createPost, getPosts, removePost, updatePost, commentUpdate, commentDelete } from '../store/actions/tweetActions';
 import { Grid, Paper } from '@material-ui/core';
 
 import { Redirect } from "react-router-dom";
@@ -99,6 +99,16 @@ class Home extends Component {
         console.log("* Home updatePost (onSubmit) postData:", body)
 
         updatePost(credential);
+
+    }
+
+    onDeleteComment = (credential) => {
+        
+        const { commentDelete } = this.props;
+
+        //const { body } = credential;
+        console.log("*** Home deleteComment (onSubmit): ---> ", credential);
+        commentDelete(credential);
 
     }
 
@@ -205,6 +215,8 @@ class Home extends Component {
                                             onRemovePost={this.onRemovePost} 
                                             onUpdatePost={this.onUpdatePost}
                                             onUpdateComment={this.onUpdateComment}
+                                            onDeleteComment={this.onDeleteComment}
+                                            
                                             key={tweet.id} /> ) }
                                     </Grid>
                                     ))}
@@ -224,6 +236,8 @@ class Home extends Component {
                                             onRemovePost={this.onRemovePost} 
                                             onUpdatePost={this.onUpdatePost}
                                             onUpdateComment={this.onUpdateComment}
+                                            onDeleteComment={this.onDeleteComment}
+                                            
                                             key={tweet.id} /> ) }
                                     </Grid>
                                     ))}
@@ -262,6 +276,7 @@ const mapDispatchToProps = (dispatch) => {
         updatePost: (post) => dispatch( updatePost(post) ) ,
         getPosts: (token) => dispatch( getPosts(token) ),
         commentUpdate: (post) => dispatch( commentUpdate(post) ),
+        commentDelete: (post) => dispatch( commentDelete(post) ),
     }
 }
 

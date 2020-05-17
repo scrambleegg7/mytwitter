@@ -6,11 +6,9 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import colorFrom from '../utils/colors';
 
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+
 
 import moment from 'moment';
 
@@ -41,9 +39,35 @@ const styles = theme => ({
 
 const CommentDisplay = (props) => {
 
-    const {classes, comments} = props;
+    const {classes, comments, commentDelete, data, onDeleteCommentItem, tweet } = props;
 
     const [commentsExist, setCommentExists] = useState(false);
+    //console.log("*** ComponentDisplay data (from redux)--> ", data )
+    const handleCommentDelete = (comment) => {
+
+
+        console.log("*** ComponentDisplay tweet post (from redux)--> ", tweet )
+        console.log("*** ComponentDisplay target comment to be deleted (from redux)--> ", comment )
+    
+
+        const credential = {
+            postId: tweet._id,
+            comment: comment,
+            token: data.token,
+        }
+
+        let answer = window.confirm("はあ?　ほんまに消すで。ええんか？")
+
+        //setAnchorEl(null);
+
+        if (answer) {
+            commentDelete(credential);
+        }
+
+
+
+    }
+
 
     return (
         <div className={classes.root}>
@@ -73,9 +97,11 @@ const CommentDisplay = (props) => {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Typography variant="body2" style={{ cursor: "pointer" }}>
-                                Remove
-                            </Typography>
+
+                            <DeleteIcon onClick= { () => onDeleteCommentItem(comment) }   />
+
+                        
+                        
                         </Grid>
                     </Paper>
                     </div>

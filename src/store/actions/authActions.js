@@ -153,6 +153,10 @@ export const signIn = (credentials) => {
                     idToken,
                     uid: firebase_logined_user.uid, 
                 }
+
+
+                console.log("*** SignIn host parameter *** ---> ", signinHost)
+
             
                 fetch(signinHost, requestOptions(user))
                 .then(handleResponse)
