@@ -65,7 +65,87 @@ const requestGetOptions = () => {
 };
 
 
+
 export const signUp = (credentials) => {
+
+    console.log("authAction signUp", credentials)
+    const email = credentials.email;
+    const password = credentials.password;
+    const firstname = credentials.firstname
+    const lastname = credentials.lastname;
+    const backgroundColor = credentials.backgroundColor;
+
+    const user = {
+        firstname, lastname, email, password, backgroundColor
+    }
+
+    //console.log("authAction signUp props", props)
+    return (dispatch , getState,  getFirebase  ) => {
+
+        const firebase = getFirebase();        
+        // react-redux-firebase v3.0.0 workaround 
+        // https://github.com/prescottprue/react-redux-firebase/issues/785
+        const firestore = getFirebase().firestore();
+        //const REACT_APP_CONFIRMATION_EMAIL_REDIRECT = "http://localhost:3000"
+
+        fetch(signupHost, requestOptions(user))
+        .then(handleResponse)
+        .then( (data) => {
+            //console.log("message (authActions) ", data)
+
+            firebase.auth().createUserWithEmailAndPassword(
+                email,
+                password
+            )
+            .then( (resp) => {
+                return firestore.collection('users').doc(resp.user.uid).set({
+                    firstName: firstname,
+                    lastName: lastname,
+                    initials: firstname[0] + lastname[0],
+                    email: email,
+                    //isAdmin: newUser.isAdmin,
+                }) 
+            })
+            .then( () => {
+    
+                const user = firebase.auth().currentUser;
+                firebase.auth().languageCode = 'ja';
+                
+                user.sendEmailVerification().
+                then( () => {
+                    
+                    //console.log("email verification after sending confirmation message.",user.emailVerified)
+                    alert("確認のメッセージをあなたのEmailボックスに送りました。確認お願いいたします。")
+    
+                  }).catch(function(error) {
+                    alert("Error happened", error)
+                  });
+                
+            })
+            .then(() => {
+                dispatch( { type: 'SIGNUP_SUCCESS' } );
+    
+            })
+            .catch( (err) => {
+                dispatch( { type: 'SIGNUP_ERROR', err });
+            })
+    
+
+
+        })
+
+
+            
+    }
+}
+
+
+
+
+
+
+
+export const signUpOld = (credentials) => {
 
     const email = credentials.email;
     const password = credentials.password;
