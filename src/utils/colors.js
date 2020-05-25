@@ -38,17 +38,18 @@ export default function colorFrom(string) {
 
         const index = string
             .toString()
-            .split('')
-            .map(char => char.charCodeAt())
-            .reduce((sum, num) => sum + num, 0);
+            //.Number()
+            //.split('')
+            //.map(char => char.charCodeAt())
+            //.reduce((sum, num) => sum + num, 0);
 
-        //console.log("entried color Index: ", index);
+        console.log("entried color Index: ", index);
 
-        const colorIndex = index % colors.length;
+        //const colorIndex = index % colors.length;
 
         //console.log("final color Index: ", colorIndex);
 
-        return colors[colorIndex][500];
+        return colors[index][500];
     } catch (e) {
         // eslint-disable-next-line
         console.error(e);

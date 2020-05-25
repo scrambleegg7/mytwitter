@@ -89,6 +89,7 @@ const MyTruncate= (props) => {
 const MyTweet = (props) => {
 
     const {classes, tweet, data, onRemovePost, onUpdatePost, onUpdateComment, onDeleteComment} = props;
+    const theme = useTheme();
 
     const postedBy = tweet.postedBy;
     const text = tweet.body;
@@ -104,6 +105,8 @@ const MyTweet = (props) => {
     const posterLastName = postedBy ? postedBy.lastname : "";
     const posterEmail = postedBy ? postedBy.email : "";
     const posterBackGroundColor = postedBy ? postedBy.backgroundColor : "";
+
+    const cardBackgroundColor = (posterEmail === "miyukipharm@gmail.com") ? theme.palette.secondary.light : theme.palette.primary.light 
     //const posterCreated = postedBy ? postedBy.created : "";
     
     const avatarName = posterLastName.charAt(0) + posterFirstName.charAt(0);
@@ -133,7 +136,7 @@ const MyTweet = (props) => {
     const [expanded, setExpanded ]  = useState(false);
     const [anchorEl, setAnchorEl ] = useState(null);
 
-    const theme = useTheme();
+
 
     const isValidUserId = ( loginUserId ===  posterId );
 
@@ -294,7 +297,7 @@ const MyTweet = (props) => {
                 />
             )}
 
-            <CardHeader style={{backgroundColor: theme.palette.primary.light,}}
+            <CardHeader style={{backgroundColor: cardBackgroundColor}}
             avatar={
                 <Avatar
                 style={{
