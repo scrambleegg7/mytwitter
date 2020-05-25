@@ -111,11 +111,6 @@ class SignIn extends Component {
             </Grid>
             <Grid container alignItems="center" justify="space-between">
                 <Grid item>
-                    <FormControlLabel control={
-                        <Checkbox
-                            color="primary"
-                        />
-                    } label="Remember me" />
                 </Grid>
                 <Grid item>
                     <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary"  component={Link} to={"/forgetpass"} >Forget password ?</Button>
