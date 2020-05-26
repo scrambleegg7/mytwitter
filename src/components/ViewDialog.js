@@ -55,7 +55,7 @@ const ViewDiaglog = (props) => {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle id="alert-dialog-slide-title">Post message</DialogTitle>
+            <DialogTitle id="alert-dialog-slide-title">伝言</DialogTitle>
             
 
             

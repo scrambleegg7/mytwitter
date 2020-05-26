@@ -111,14 +111,37 @@ export const removeUser = (credentials) => {
     const userId = credentials.userId;
     const token = credentials.token;
 
-    return (dispatch, getState) => {
+    return (dispatch , getState,  getFirebase  ) => {
+    //return (dispatch, getState) => {
+
+        const firebase = getFirebase();        
+        // react-redux-firebase v3.0.0 workaround 
+        // https://github.com/prescottprue/react-redux-firebase/issues/785
+        const firestore = getFirebase().firestore();
+        var user = firebase.auth().currentUser;
+
+        console.log("removeUser (userActions) user ---> ", user.uid)
 
         fetch(readuserHost + userId, removeUserOptions(token, credentials))
         .then(handleResponse)
         .then( (userData) => {
             //console.log("message (authActions) ", userData)
             removeJWTStore()
+
+            user.delete()
+            .catch( (err) => {
+                // An error happened.
+                dispatch( { type: 'REMOVEESER_ERROR', err });
+            });
+
+            let deleteDoc  = firestore.collection('users').doc(user.uid).delete()
+            console.log("delete user firestore collection --> ",deleteDoc)
+            //.then( () => {
             dispatch({ type: "REMOVEUSER_SUCCESS", userData })
+            //})
+
+
+
         })
         .catch( (err) => {
             //console.log("signup error", err)            

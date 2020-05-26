@@ -83,7 +83,11 @@ const MyTruncate= (props) => {
 
     const strtext = strlength > 140 ? str.substring(0,140) + "....(more)" : str;
 
-    return strtext
+    return (
+        <Markdown
+         source={strtext}
+        />
+        )
 }
 
 const MyTweet = (props) => {

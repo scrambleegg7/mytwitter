@@ -31,7 +31,7 @@ const styles = theme => ({
 class DeleteUser extends Component {
 
     deleteConfirmed = () => {
-        let answer = window.confirm("Are you seriously sure you want to delete your account ?")
+        let answer = window.confirm("あんた消えてなくなってもええんか ?")
 
         const { data } = this.props;
 

@@ -234,7 +234,7 @@ class ButtonAppBar extends Component {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap>
-                    Company Board
+                    みゆき伝言サービス
                 </Typography>
                 </Toolbar>
             </AppBar>

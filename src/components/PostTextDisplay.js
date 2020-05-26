@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Avatar,  Card, withStyles,} from '@material-ui/core';
 
+import Markdown from 'react-markdown';
+
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import colorFrom from '../utils/colors';
-
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -63,7 +64,9 @@ const PostTextDisplay = (props) => {
                             {moment(tweet.created).fromNow()}
                         </Typography>
                         <Typography variant="body2">
+                            <Markdown source=
                             {tweet.body}
+                            />
                         </Typography>
                     </Grid>
                 </Grid>
