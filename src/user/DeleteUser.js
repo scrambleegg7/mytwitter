@@ -51,7 +51,7 @@ class DeleteUser extends Component {
 
         return (
             <Grid container  style={{ marginTop: '20px' }}>
-                <Button color="secondary" variant="contained" style={{ textTransform: "none" }} onClick={this.deleteConfirmed}  >Delete</Button>
+                <Button color="secondary" variant="contained" style={{ textTransform: "none" }} onClick={this.deleteConfirmed}  >ユーザーを削除する</Button>
             </Grid>
 
         )

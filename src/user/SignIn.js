@@ -159,9 +159,9 @@ class SignIn extends Component {
         if (firebaseAuth.emailVerified && redirectToReferer && firebaseToken) {
             return <Redirect  to="/"   />
         }
-        if (!firebaseAuth.emailVerified) {
-            
-        }
+        //if (!firebaseAuth.emailVerified) {
+        //    return <Redirect  to="/signin"   />
+        //}
 
         return (
             <div>

@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 
 //import Link from '@material-ui/core/Link';
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const styles = theme => ({
 
@@ -191,6 +191,10 @@ class SinUp extends Component {
     render() {
         
         const { classes,authError } = this.props;
+
+        if (authError === "signup_successed") {
+            return <Redirect  to="/signin"   />
+        }
 
 
         return (
