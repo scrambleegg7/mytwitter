@@ -49,7 +49,7 @@ const styles = theme => ({
     },
     content: {
         //wordWrap: 'break-word',
-        height: '20vw',
+        height: '15vw',
     },
     link: {
         textDecoration: 'none',

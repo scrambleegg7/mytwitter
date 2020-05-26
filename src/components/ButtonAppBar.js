@@ -173,13 +173,13 @@ class ButtonAppBar extends Component {
                     <List>
                         <ListItem button  onClick={ this.handleProfile  } >
                         <ListItemIcon>< PersonIcon /></ListItemIcon>
-                        <ListItemText primary="edit profile" />
+                        <ListItemText primary="ユーザー編集" />
                         </ListItem>
                     </List>    
                     <List>
                         <ListItem button component={Link} to="/reset-password" >
                         <ListItemIcon><VpnKeyIcon/></ListItemIcon>
-                        <ListItemText primary="Change password" />
+                        <ListItemText primary="パスワード変更" />
                         </ListItem>
                     </List>    
 
