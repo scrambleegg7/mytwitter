@@ -145,7 +145,7 @@ class Home extends Component {
           .reverse();
 
         var rebels = tweetsPost.filter( (tweet) => {
-            return tweet.postedBy.email !== "rmhmn777@gmail.com";
+            return tweet.postedBy.email !== "miyukipharm@gmail.com";
         });   
         return rebels;     
 
@@ -165,7 +165,7 @@ class Home extends Component {
           
 
         var rebels = tweetsPost.filter( (tweet) => {
-            return tweet.postedBy.email === "rmhmn777@gmail.com";
+            return tweet.postedBy.email === "miyukipharm@gmail.com";
         });   
         return rebels;     
 
