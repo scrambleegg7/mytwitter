@@ -75,7 +75,7 @@ class TweetInput extends React.Component {
                 fullWidth
                 multiline
                 rows={4}
-                placeholder="What's happening?"
+                placeholder="伝えたいことはなんですか？"
                 inputRef={this.input}
                 />
                 <Grid container justify="flex-end">

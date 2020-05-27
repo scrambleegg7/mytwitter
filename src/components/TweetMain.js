@@ -101,6 +101,12 @@ const MyTweet = (props) => {
     const text = tweet.body;
     const created = tweet.created;
     const id = tweet._id;
+
+    //  shorten message on board.
+    const strlength = text.length;
+    const strtext = strlength > 100 ? text.substring(0,100) + "....(続く)" : text;
+
+
     // comment 
     const comment = tweet.comments;
 
@@ -321,7 +327,7 @@ const MyTweet = (props) => {
             
             <CardContent className={classes.content}  onClick={handleClickOpen}   >
                 <Typography paragraph noWrap={false}>
-                    <MyTruncate str={text} />
+                    {strtext}
                 </Typography>
             </CardContent>
 
