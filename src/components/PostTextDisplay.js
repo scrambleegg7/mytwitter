@@ -64,9 +64,9 @@ const PostTextDisplay = (props) => {
                             {moment(tweet.created).fromNow()}
                         </Typography>
                         <Typography variant="body2">
-                            <Markdown source=
+                            
                             {tweet.body}
-                            />
+                            
                         </Typography>
                     </Grid>
                 </Grid>

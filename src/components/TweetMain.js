@@ -81,12 +81,14 @@ const MyTruncate= (props) => {
     //console.log("truncate", str.length);
     const strlength = str.length;
 
-    const strtext = strlength > 100 ? str.substring(0,100) + "....(more)" : str;
+    const strtext = strlength > 100 ? str.substring(0,100) + "....(続く)" : str;
 
     return (
-        <Markdown
-         source={strtext}
-        />
+        <div>
+        
+         {strtext}
+        
+        </div>
         )
 }
 
