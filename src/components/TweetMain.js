@@ -102,6 +102,40 @@ const MyTweet = (props) => {
     const created = tweet.created;
     const id = tweet._id;
 
+
+    const today = new Date();
+    const startDate = moment(created);
+    const endDate = moment(today);
+  
+    const diff = endDate.diff(startDate);
+    const diffDurationDays = moment.duration(diff).days();
+    
+    //console.log("TweetMain: duration from created date", diffDuration)
+
+    const newIndicatorPost = () => {
+
+        const textmessage = 
+         diffDurationDays < 4 ?
+            (
+                <Typography
+                gutterBottom
+                variant="body"
+                component="body"
+                color="secondary"
+              >
+                New
+              </Typography>
+         
+            ) : ""
+
+        
+
+        return {textmessage}
+    
+
+    }
+
+
     //  shorten message on board.
     const strlength = text.length;
     const strtext = strlength > 100 ? text.substring(0,100) + "....(続く)" : text;
@@ -326,6 +360,19 @@ const MyTweet = (props) => {
             />
             
             <CardContent className={classes.content}  onClick={handleClickOpen}   >
+                {
+                    diffDurationDays < 4 ? 
+                    <Typography
+                gutterBottom
+                variant="h6"
+                component="h6"
+                color="secondary"
+              >
+                New
+              </Typography> 
+                    : 
+                    ""
+                }
                 <Typography paragraph noWrap={false}>
                     {strtext}
                 </Typography>
