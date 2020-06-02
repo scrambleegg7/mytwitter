@@ -20,7 +20,7 @@ const styles = (theme) =>  ( {
       },
 
     paper_input: {
-        height: 200,
+        height: 300,
         margin: theme.spacing.unit *0.2,
         //width: 100,
     },
