@@ -122,6 +122,12 @@ class TweetInput extends React.Component {
         this.props.onSubmit(credentials, event);
         this.input.current.value = '';
 
+        this.setState({
+            selectedFile: null, 
+            preview: null
+        })
+
+
     };
 
     render() {
