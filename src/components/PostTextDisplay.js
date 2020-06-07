@@ -43,6 +43,7 @@ const styles = theme => ({
 const PostTextDisplay = (props) => {
 
     const {classes, tweet} = props;
+    const id = tweet._id;
 
     const [commentsExist, setCommentExists] = useState(false);
 
@@ -70,6 +71,17 @@ const PostTextDisplay = (props) => {
                         </Typography>
                     </Grid>
                 </Grid>
+
+                {tweet.photo && (
+                <Grid container>
+                    <Grid item>
+                    <img src={`${process.env.REACT_APP_API_URL}/post/photo/${id}`}  />
+                    </Grid>
+                </Grid>
+
+                )}
+                
+
             </Paper>
         </Grid>            
         </div>

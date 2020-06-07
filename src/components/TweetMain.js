@@ -92,6 +92,17 @@ const MyTruncate= (props) => {
         )
 }
 
+
+// image converter
+const arrayBufferToBase64 = (buffer) => {
+
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    return window.btoa(binary);
+
+};
+
 const MyTweet = (props) => {
 
     const {classes, tweet, data, onRemovePost, onUpdatePost, onUpdateComment, onDeleteComment} = props;
@@ -102,7 +113,15 @@ const MyTweet = (props) => {
     const created = tweet.created;
     const id = tweet._id;
 
+    const [ preview , setPreview ] = useState("");
 
+    var base64Flag = 'data:image/jpeg;base64,';
+    
+    //var imageStr = this.arrayBufferToBase64(data.img.data.data);    
+    //const photo = tweet.photo ? setPreview(  arrayBufferToBase64(tweet.photo.data.data) + base64Flag  ): "";
+
+    
+        
     const today = new Date();
     const startDate = moment(created);
     const endDate = moment(today);
@@ -111,30 +130,6 @@ const MyTweet = (props) => {
     const diffDurationDays = moment.duration(diff).days();
     
     //console.log("TweetMain: duration from created date", diffDuration)
-
-    const newIndicatorPost = () => {
-
-        const textmessage = 
-         diffDurationDays < 4 ?
-            (
-                <Typography
-                gutterBottom
-                variant="body"
-                component="body"
-                color="secondary"
-              >
-                New
-              </Typography>
-         
-            ) : ""
-
-        
-
-        return {textmessage}
-    
-
-    }
-
 
     //  shorten message on board.
     const strlength = text.length;
@@ -169,6 +164,8 @@ const MyTweet = (props) => {
     //console.log(avatarName)
 
     const image = text.match(imageUrlRe);
+
+
     const urlMatches = text.match(/\b(http|https)?:\/\/\S+/gi) || [];
     const LinkPreviews = urlMatches.map(link => <MicrolinkCard url={link} />);
 
@@ -335,10 +332,12 @@ const MyTweet = (props) => {
             elevation={8}
             >    
 
-            {image && (
+
+
+            {tweet.photo && (
                 <CardMedia
                 className={classes.cardMedia}
-                image={image[0]}
+                image={`${process.env.REACT_APP_API_URL}/post/photo/${id}`}
                 title="An tweet's image"
                 />
             )}
